@@ -25,6 +25,7 @@
 Lancer la commande suivante pour compiler automatiquement le scss en css
 * sass --watch scss:css
 * Travailler sur le fichier scss/style.scss
+##### Procédure de travail
 Toujours travailler sur la branche dev et récupérer les éventuelles mises à jour du code avant chaque mise à jour.
 Une fois la mise à jour terminée sur la branche dev, se placer sur la branche master et envoyer la modification :
 * git checkout master 
