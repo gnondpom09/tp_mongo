@@ -1,9 +1,9 @@
-### Projet mongoDB
+# Projet mongoDB
 * Lavaud Christine
 * Botella Laurent
 * Galland Adeline
 * Gao Tian
-#### Installation
+## Installation
 ##### Installation de git sur Debian
 * sudo apt-get update
 * sudo apt-get install git-core
@@ -12,14 +12,15 @@
 * git config --list
 ##### Recuperation du dossier
 * git clone https://github.com/gnondpom09/tp_mongo.git
+##### Installation de sass
 * npm i -g sass (si nodejs installé)
-#### Outils de gestion de projet
+## Outils de gestion de projet
 * https://www.notion.so/
 * https://slack.com
 #### Base de données 
 * Adresse : mongodb://localhost:27017
 * Nom de la base : geo_france
-#### Modifications
+## Modifications
 ##### Travail sur le style
 * Se placer dans la racine du projet
 Lancer la commande suivante pour compiler automatiquement le scss en css
