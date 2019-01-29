@@ -9,4 +9,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+<?php include_once 'connexion.php'; ?>
     
