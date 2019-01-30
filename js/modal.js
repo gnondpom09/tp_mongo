@@ -7,7 +7,7 @@
 	openRegisterCtrl = modalEl.querySelector('.btn--modal-register'),
     closeCtrl = document.querySelector('.overlay');
     var primaryColor = '#6AC8EE';
-    var darkColor = '#252525';
+    var darkColor = '#f679e7';
 
 	//Initialize register modalEl
 	var modalElRegister = document.querySelector('.modal-register'),

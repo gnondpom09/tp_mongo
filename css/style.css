@@ -8,6 +8,11 @@
   margin-top: 0 !important; }
 
 body {
+  color: #fff;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-content: space-between !important;
   font-family: 'Muli', sans-serif;
   background: #519af0;
   /* Old browsers */
@@ -50,6 +55,23 @@ input[type="submit"] {
 /******************************************************************************/
 /****************************************** HOME ******************************/
 /******************************************************************************/
+#home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh; }
+  #home #title {
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    font-size: 4em; }
+
+.top-bar, .top-bar ul {
+  background-color: transparent; }
+  .top-bar li a, .top-bar ul li a {
+    color: #fff;
+    font-weight: 600; }
+
 /******************************************************************************/
 /******************************* LOGIN FORM ***********************************/
 /******************************************************************************/

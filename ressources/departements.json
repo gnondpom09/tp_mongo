@@ -1,0 +1,101 @@
+{"_id":1.0,"_id_region":22.0,"code":"01","nom":"Ain"}
+{"_id":2.0,"_id_region":19.0,"code":"02","nom":"Aisne"}
+{"_id":3.0,"_id_region":2.0,"code":"03","nom":"Allier"}
+{"_id":4.0,"_id_region":21.0,"code":"04","nom":"Alpes de Haute Provence"}
+{"_id":5.0,"_id_region":21.0,"code":"05","nom":"Hautes Alpes"}
+{"_id":6.0,"_id_region":21.0,"code":"06","nom":"Alpes Maritimes"}
+{"_id":7.0,"_id_region":22.0,"code":"07","nom":"Ardèche"}
+{"_id":8.0,"_id_region":6.0,"code":"08","nom":"Ardennes"}
+{"_id":9.0,"_id_region":14.0,"code":"09","nom":"Ariège"}
+{"_id":10.0,"_id_region":6.0,"code":"10","nom":"Aube"}
+{"_id":11.0,"_id_region":11.0,"code":"11","nom":"Aude"}
+{"_id":12.0,"_id_region":14.0,"code":"12","nom":"Aveyron"}
+{"_id":13.0,"_id_region":21.0,"code":"13","nom":"Bouches du Rhône"}
+{"_id":14.0,"_id_region":24.0,"code":"14","nom":"Calvados"}
+{"_id":15.0,"_id_region":2.0,"code":"15","nom":"Cantal"}
+{"_id":16.0,"_id_region":20.0,"code":"16","nom":"Charente"}
+{"_id":17.0,"_id_region":20.0,"code":"17","nom":"Charente Maritime"}
+{"_id":18.0,"_id_region":5.0,"code":"18","nom":"Cher"}
+{"_id":19.0,"_id_region":12.0,"code":"19","nom":"Corrèze"}
+{"_id":21.0,"_id_region":12.0,"code":"23","nom":"Creuse"}
+{"_id":22.0,"_id_region":1.0,"code":"24","nom":"Dordogne"}
+{"_id":23.0,"_id_region":9.0,"code":"25","nom":"Doubs"}
+{"_id":24.0,"_id_region":22.0,"code":"26","nom":"Drôme"}
+{"_id":25.0,"_id_region":17.0,"code":"27","nom":"Eure"}
+{"_id":26.0,"_id_region":5.0,"code":"28","nom":"Eure et Loir"}
+{"_id":27.0,"_id_region":4.0,"code":"29","nom":"Finistère"}
+{"_id":28.0,"_id_region":11.0,"code":"30","nom":"Gard"}
+{"_id":29.0,"_id_region":14.0,"code":"31","nom":"Haute Garonne"}
+{"_id":30.0,"_id_region":14.0,"code":"32","nom":"Gers"}
+{"_id":31.0,"_id_region":1.0,"code":"33","nom":"Gironde"}
+{"_id":32.0,"_id_region":11.0,"code":"34","nom":"Hérault"}
+{"_id":33.0,"_id_region":4.0,"code":"35","nom":"Ille et Vilaine"}
+{"_id":34.0,"_id_region":5.0,"code":"36","nom":"Indre"}
+{"_id":35.0,"_id_region":5.0,"code":"37","nom":"Indre et Loire"}
+{"_id":36.0,"_id_region":22.0,"code":"38","nom":"Isère"}
+{"_id":37.0,"_id_region":9.0,"code":"39","nom":"Jura"}
+{"_id":38.0,"_id_region":1.0,"code":"40","nom":"Landes"}
+{"_id":39.0,"_id_region":5.0,"code":"41","nom":"Loir et Cher"}
+{"_id":40.0,"_id_region":22.0,"code":"42","nom":"Loire"}
+{"_id":41.0,"_id_region":2.0,"code":"43","nom":"Haute Loire"}
+{"_id":42.0,"_id_region":18.0,"code":"44","nom":"Loire Atlantique"}
+{"_id":43.0,"_id_region":5.0,"code":"45","nom":"Loiret"}
+{"_id":44.0,"_id_region":14.0,"code":"46","nom":"Lot"}
+{"_id":45.0,"_id_region":1.0,"code":"47","nom":"Lot et Garonne"}
+{"_id":46.0,"_id_region":11.0,"code":"48","nom":"Lozère"}
+{"_id":47.0,"_id_region":18.0,"code":"49","nom":"Maine et Loire"}
+{"_id":48.0,"_id_region":24.0,"code":"50","nom":"Manche"}
+{"_id":49.0,"_id_region":6.0,"code":"51","nom":"Marne"}
+{"_id":50.0,"_id_region":6.0,"code":"52","nom":"Haute Marne"}
+{"_id":51.0,"_id_region":18.0,"code":"53","nom":"Mayenne"}
+{"_id":52.0,"_id_region":13.0,"code":"54","nom":"Meurthe et Moselle"}
+{"_id":53.0,"_id_region":13.0,"code":"55","nom":"Meuse"}
+{"_id":54.0,"_id_region":4.0,"code":"56","nom":"Morbihan"}
+{"_id":55.0,"_id_region":13.0,"code":"57","nom":"Moselle"}
+{"_id":56.0,"_id_region":3.0,"code":"58","nom":"Nièvre"}
+{"_id":57.0,"_id_region":15.0,"code":"59","nom":"Nord"}
+{"_id":58.0,"_id_region":19.0,"code":"60","nom":"Oise"}
+{"_id":59.0,"_id_region":24.0,"code":"61","nom":"Orne"}
+{"_id":60.0,"_id_region":15.0,"code":"62","nom":"Pas de Calais"}
+{"_id":61.0,"_id_region":2.0,"code":"63","nom":"Puy de Dôme"}
+{"_id":65.0,"_id_region":23.0,"code":"67","nom":"Bas Rhin"}
+{"_id":62.0,"_id_region":1.0,"code":"64","nom":"Pyrénées Atlantiques"}
+{"_id":63.0,"_id_region":14.0,"code":"65","nom":"Hautes Pyrénées"}
+{"_id":64.0,"_id_region":11.0,"code":"66","nom":"Pyrénées Orientales"}
+{"_id":66.0,"_id_region":23.0,"code":"68","nom":"Haut Rhin"}
+{"_id":67.0,"_id_region":22.0,"code":"69","nom":"Rhône"}
+{"_id":68.0,"_id_region":9.0,"code":"70","nom":"Haute Saône"}
+{"_id":69.0,"_id_region":3.0,"code":"71","nom":"Saône et Loire"}
+{"_id":70.0,"_id_region":18.0,"code":"72","nom":"Sarthe"}
+{"_id":71.0,"_id_region":22.0,"code":"73","nom":"Savoie"}
+{"_id":72.0,"_id_region":22.0,"code":"74","nom":"Haute Savoie"}
+{"_id":73.0,"_id_region":10.0,"code":"75","nom":"Seine"}
+{"_id":74.0,"_id_region":17.0,"code":"76","nom":"Seine Maritime"}
+{"_id":75.0,"_id_region":10.0,"code":"77","nom":"Seine et Marne"}
+{"_id":76.0,"_id_region":10.0,"code":"78","nom":"Yvelines"}
+{"_id":77.0,"_id_region":20.0,"code":"79","nom":"Deux Sèvres"}
+{"_id":78.0,"_id_region":19.0,"code":"80","nom":"Somme"}
+{"_id":79.0,"_id_region":14.0,"code":"81","nom":"Tarn"}
+{"_id":80.0,"_id_region":14.0,"code":"82","nom":"Tarn et Garonne"}
+{"_id":81.0,"_id_region":21.0,"code":"83","nom":"Var"}
+{"_id":82.0,"_id_region":21.0,"code":"84","nom":"Vaucluse"}
+{"_id":83.0,"_id_region":18.0,"code":"85","nom":"Vendée"}
+{"_id":84.0,"_id_region":20.0,"code":"86","nom":"Vienne"}
+{"_id":85.0,"_id_region":12.0,"code":"87","nom":"Haute Vienne"}
+{"_id":86.0,"_id_region":13.0,"code":"88","nom":"Vosges"}
+{"_id":87.0,"_id_region":3.0,"code":"89","nom":"Yonne"}
+{"_id":88.0,"_id_region":9.0,"code":"90","nom":"Territoire de Belfort"}
+{"_id":89.0,"_id_region":10.0,"code":"91","nom":"Essonne"}
+{"_id":90.0,"_id_region":10.0,"code":"92","nom":"Hauts de Seine"}
+{"_id":91.0,"_id_region":10.0,"code":"93","nom":"Seine Saint Denis"}
+{"_id":92.0,"_id_region":10.0,"code":"94","nom":"Val de Marne"}
+{"_id":93.0,"_id_region":8.0,"code":"976","nom":"Mayotte"}
+{"_id":94.0,"_id_region":8.0,"code":"971","nom":"Guadeloupe"}
+{"_id":95.0,"_id_region":8.0,"code":"973","nom":"Guyane"}
+{"_id":96.0,"_id_region":8.0,"code":"972","nom":"Martinique"}
+{"_id":97.0,"_id_region":8.0,"code":"974","nom":"Réunion"}
+{"_id":98.0,"_id_region":3.0,"code":"21","nom":"Côte d'Or"}
+{"_id":102.0,"_id_region":7.0,"code":"2A","nom":"Corse du sud"}
+{"_id":100.0,"_id_region":4.0,"code":"22","nom":"Côtes d'Armor"}
+{"_id":103.0,"_id_region":7.0,"code":"2B","nom":"Haute Corse"}
+{"_id":104.0,"_id_region":10.0,"code":"95","nom":"Val d'Oise"}

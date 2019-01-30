@@ -3,6 +3,7 @@
 /************************************* VARIABLES ******************************/
 /******************************************************************************/
 $primary: #6AC8EE;
+$pink: #f679e7;
 $white: #fff;
 $dark-grey: #252525;
 
@@ -14,6 +15,11 @@ $dark-grey: #252525;
     margin-top: 0 !important;
 }
 body {
+    color: $white;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    align-content: space-between !important;
     font-family: 'Muli', sans-serif;
     background: #519af0; /* Old browsers */
     background: -moz-linear-gradient(45deg, #519af0 0%, #f679e7 100%); /* FF3.6-15 */
@@ -53,7 +59,27 @@ input[type="submit"] {
 /******************************************************************************/
 /****************************************** HOME ******************************/
 /******************************************************************************/
-
+#home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    #title {
+        text-transform: uppercase;
+        text-align: center;
+        color: $white;
+        font-size: 4em;
+    }
+}
+.top-bar, .top-bar ul {
+    background-color: transparent;
+    li {
+        a {
+            color: $white;
+            font-weight: 600;
+        }
+    }
+}
 
 
 /******************************************************************************/

@@ -1,0 +1,142 @@
+[
+    {
+      "_id": "5c51dd3574c3d85e04163182",
+      "name": "Lindsay",
+      "role": "admin",
+      "email": "lindsaybean@izzby.com",
+      "password": "0e9b0b6c-8230-487c-9716-90e7f24d84c5"
+    },
+    {
+      "_id": "5c51dd3594e9f39a6a21aec6",
+      "name": "Booker",
+      "role": "edit",
+      "email": "bookerbean@izzby.com",
+      "password": "9339d7cc-4988-401c-a349-bcb0a017ce30"
+    },
+    {
+      "_id": "5c51dd3581023a2c9bbe87b5",
+      "name": "Winifred",
+      "role": "edit",
+      "email": "winifredbean@izzby.com",
+      "password": "8b7283e1-c2b0-4e7f-867b-8476edb53166"
+    },
+    {
+      "_id": "5c51dd35672ffee5ef492846",
+      "name": "Ina",
+      "role": "admin",
+      "email": "inabean@izzby.com",
+      "password": "9caffbe8-c988-4907-ad95-f2e4c5734c29"
+    },
+    {
+      "_id": "5c51dd35903f34c23fabb846",
+      "name": "Stokes",
+      "role": "edit",
+      "email": "stokesbean@izzby.com",
+      "password": "dc97f3f9-fde7-4964-ac4a-eb6b3185aa17"
+    },
+    {
+      "_id": "5c51dd352cb6b0889751d3b1",
+      "name": "Madeline",
+      "role": "admin",
+      "email": "madelinebean@izzby.com",
+      "password": "42563dac-b5ba-44b4-b54b-0fe3b29f77bb"
+    },
+    {
+      "_id": "5c51dd354864dc8f8d648e09",
+      "name": "Tammy",
+      "role": "admin",
+      "email": "tammybean@izzby.com",
+      "password": "7d83c453-bf6d-4292-bd98-7aca04835b41"
+    },
+    {
+      "_id": "5c51dd355dc06bc915c647ac",
+      "name": "Adrian",
+      "role": "admin",
+      "email": "adrianbean@izzby.com",
+      "password": "f4c88e60-9ca3-41ab-a0b1-e65bd1625d60"
+    },
+    {
+      "_id": "5c51dd3576feec6b29871236",
+      "name": "Grace",
+      "role": "edit",
+      "email": "gracebean@izzby.com",
+      "password": "49ea5742-9428-474d-a2b9-a6ec1c10c2d5"
+    },
+    {
+      "_id": "5c51dd3597e34722e8a95be1",
+      "name": "Lucas",
+      "role": "edit",
+      "email": "lucasbean@izzby.com",
+      "password": "08e91a5c-ee51-428c-8cf7-10f78ea5bdea"
+    },
+    {
+      "_id": "5c51dd3549cac129d0457f9b",
+      "name": "Pugh",
+      "role": "edit",
+      "email": "pughbean@izzby.com",
+      "password": "35b5bf85-1559-4c37-a70a-88ce2e70fbac"
+    },
+    {
+      "_id": "5c51dd35302b0d6356d20f93",
+      "name": "Strong",
+      "role": "edit",
+      "email": "strongbean@izzby.com",
+      "password": "34c39b7d-ef0f-4b32-83ce-e086654b58fe"
+    },
+    {
+      "_id": "5c51dd35933cf53578ec31c6",
+      "name": "Bullock",
+      "role": "admin",
+      "email": "bullockbean@izzby.com",
+      "password": "d4ae8e1c-d686-4702-b50a-fd932a2d0364"
+    },
+    {
+      "_id": "5c51dd35b82873448f64dfbf",
+      "name": "Cantrell",
+      "role": "admin",
+      "email": "cantrellbean@izzby.com",
+      "password": "2a75ba25-ae4c-42a3-b7e8-924863eb36ea"
+    },
+    {
+      "_id": "5c51dd353cf27160790f18ad",
+      "name": "Tara",
+      "role": "admin",
+      "email": "tarabean@izzby.com",
+      "password": "7076b9b1-f8f1-4b42-a5a6-363735a482a2"
+    },
+    {
+      "_id": "5c51dd35904c805734ebd62d",
+      "name": "Bright",
+      "role": "edit",
+      "email": "brightbean@izzby.com",
+      "password": "bf6ccf68-c8df-4a54-87dc-3ce9f91397a2"
+    },
+    {
+      "_id": "5c51dd359960d5c555676ce2",
+      "name": "Hayden",
+      "role": "edit",
+      "email": "haydenbean@izzby.com",
+      "password": "d8723b36-d02d-4c99-824b-5720849b2efd"
+    },
+    {
+      "_id": "5c51dd3546f94dfdf2a12b48",
+      "name": "Aimee",
+      "role": "edit",
+      "email": "aimeebean@izzby.com",
+      "password": "a9e8f6c1-d667-4b79-aa90-eee0103a073c"
+    },
+    {
+      "_id": "5c51dd352684ce4d93a10d6d",
+      "name": "Weiss",
+      "role": "admin",
+      "email": "weissbean@izzby.com",
+      "password": "4e5fa130-d0d4-4c57-ae72-d07ba3c6b75b"
+    },
+    {
+      "_id": "5c51dd3539ec38b95ca94e60",
+      "name": "Sonia",
+      "role": "edit",
+      "email": "soniabean@izzby.com",
+      "password": "e63d7b62-ca4b-4b40-bd5e-274739a8b37b"
+    }
+  ]
