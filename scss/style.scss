@@ -1,0 +1,176 @@
+
+/******************************************************************************/
+/************************************* VARIABLES ******************************/
+/******************************************************************************/
+$primary: #6AC8EE;
+$white: #fff;
+$dark-grey: #252525;
+
+/******************************************************************************/
+/*************************************** RESET ********************************/
+/******************************************************************************/
+
+.js, .fontawesome-i2svg-active, .fontawesome-i2svg-complete {
+    margin-top: 0 !important;
+}
+body {
+    font-family: 'Muli', sans-serif;
+    background: #519af0; /* Old browsers */
+    background: -moz-linear-gradient(45deg, #519af0 0%, #f679e7 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(45deg, #519af0 0%,#f679e7 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(45deg, #519af0 0%,#f679e7 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#519af0', endColorstr='#f679e7',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+a, a:hover, a:visited, a:focus, a:active {
+    color: $primary;
+}
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    color: $white !important;
+    font-weight: 600 !important;
+    padding: 10px;
+    margin: 0;
+    background-color: $primary;
+    font-size: 12px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    padding: .6em 1em .4em;
+    border: 0;
+}
+.menu-login {
+    list-style: none;
+    .btn-login {
+        background-color: transparent !important;
+        position: absolute;
+        right: 20px;
+        text-transform: uppercase;
+    }
+}
+
+/******************************************************************************/
+/****************************************** HOME ******************************/
+/******************************************************************************/
+
+
+
+/******************************************************************************/
+/******************************* LOGIN FORM ***********************************/
+/******************************************************************************/
+
+.block-revealer__content {
+    background: #fff;
+    text-align: center;
+}
+#login-form a {
+    color: $primary;
+    text-align: center !important;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+#user-login {
+    margin-bottom: 0 !important;
+}
+.modal__inner {
+    text-align: center;
+    input {
+        width: 100% !important;
+        height: 40px;
+        margin-bottom: 20px;
+    }
+    .legend {
+        font-size: 0.8em;
+        display: inline-block;
+    }
+    input[type=submit] {
+        padding: 4%;
+        font-weight: 300 !important;
+    }
+    .btn--modal-register {
+        background-color: $white !important;
+        color: $primary !important;
+        font-size: 0.8em;
+        display: inline-block;
+    }
+    .btn--modal-close {
+        background-color: $white !important;
+        color: $primary !important;
+        border: 1px solid $primary;
+        display: block;
+        float: none;
+        width: 100%;
+        padding: 4%;
+        font-weight: 300 !important;
+    }
+}
+.button:hover {
+    background-color: $white !important;
+    color: $primary !important;
+    border: 1px solid $primary;
+}
+
+/******************************************************************************/
+/************************************** Error Page ****************************/
+/******************************************************************************/
+
+/* Not Found */
+.not-found {
+    text-align: center;
+    .page-title {
+        font-size: 12em;
+        font-weight: 700;
+        color: $primary;
+        margin-bottom: 0;
+    }
+    h5 {
+        font-size: 2.4em;
+        letter-spacing: 2px;
+        font-weight: 600;
+    }
+    span, p {
+        font-size: 1.4em;
+        padding-bottom: 40px;
+    }
+    .back-to-home {
+        float: none;
+        width: 12%;
+        margin: auto;
+    }
+}
+
+/******************************************************************************/
+/************************************** FOOTER ********************************/
+/******************************************************************************/
+
+
+/******************************************************************************/
+/************************************** RESPONSIVE ****************************/
+/******************************************************************************/
+
+@media only screen and (max-width: 1199px) {
+
+}
+@media only screen and (max-width: 1024px) {
+
+}
+@media only screen and (max-width: 991px) {
+
+
+}
+@media only screen and (max-width: 768px) {
+
+}
+@media only screen and (max-width: 767px) {
+
+
+}
+@media only screen and (max-width: 600px) {
+
+
+}
+@media only screen and (max-width: 460px) {
+
+
+}
