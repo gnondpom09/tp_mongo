@@ -2,9 +2,9 @@
 	include 'header.php'; 
 ?>
 
-		<!--Center Text-->
-		<div class="row align-center">
-			<div class="column small-4">GEO FRANCE</div>
+		<!-- Center Text -->
+		<div class="grid-x"> <!-- need to add justify-center: center in css -->
+			<div class="cell small-4">GEO FRANCE</div>
 		</div>
 
 	    <!-- Menu -->
