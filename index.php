@@ -3,8 +3,8 @@
 ?>
 
 		<!-- Center Text -->
-		<div class="grid-x"> <!-- need to add justify-center: center in css -->
-			<div class="cell small-4">GEO FRANCE</div>
+		<div class="grid-x grid-padding-x align-center align-middle">
+			<div class="cell small-4 separator-center">GEO FRANCE</div>
 		</div>
 
 	    <!-- Menu -->
