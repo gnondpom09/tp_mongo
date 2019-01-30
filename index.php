@@ -2,45 +2,28 @@
 	include 'header.php'; 
 ?>
 
-	<!--Cover Box-->
-	<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-
-		<!--Login-->
-		<div class="container-fluid">
-			<div class="row justify-content-end">
-				<div class="col-2">
-					<a class="navbar-brand" href="#">CONNEXION</a>
-				</div>
-			</div>
+		<!--Center Text-->
+		<div class="row align-center">
+			<div class="column small-4">GEO FRANCE</div>
 		</div>
 
-		<!--Center Text-->
-		<main role="main" class="inner cover">
-			<h1 class="cover-heading">GEO FRANCE</h1>
-			<!--<p class="lead">.</p>-->
-		</main>
-
 	    <!-- Menu -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">LDNR</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+		<div class="title-bar" data-responsive-toggle="example-animated-menu" data-hide-for="medium">
+  			<button class="menu-icon" type="button" data-toggle></button>
+ 			 <div class="title-bar-title">Menu</div>
+		</div>
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<a class="nav-link" href="#">Accueil<span class="sr-only">(current)</span></a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Visualisation</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Maintenance</a>
-					</li>
+		<div class="top-bar" id="example-animated-menu" data-animate="hinge-in-from-top hinge-out-from-top">
+  			<div class="top-bar-left">
+				<ul class="dropdown menu" data-dropdown-menu>
+					<li class="menu-text">LDNR</li>
+					<li><a href="#">Accueil</a></li>
+					<li><a href="#">Visualisation</a></li>
+					<li><a href="#">Maintenance</a></li>
 				</ul>
-			</div>
-		</nav>
-	</div>
+  			</div>
+		</div>
 
-<?php include 'footer.php'; ?>
+<?php 
+	include 'footer.php'; 
+?>
