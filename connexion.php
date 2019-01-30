@@ -11,7 +11,7 @@ try {
         $Connexion = new MongoDB\Driver\Manager($dsn);  
 
         // Sélection de la database "geo_france"
-         $db = $connexion->selectDB($dbname);
+        //  $db = $connexion->selectDB($dbname);
          
    
 } catch (exception $exep) {
