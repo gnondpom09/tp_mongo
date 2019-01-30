@@ -1,0 +1,44 @@
+[
+  {
+    "_id": "5c5178427b5ebd7ee9f21768",
+    "name": "Manning Robinson",
+    "role": "edit",
+    "password": "kUe2Zc27"
+  },
+  {
+    "_id": "5c51784298ae60be8e0c5ac3",
+    "name": "Carlson Welch",
+    "role": "edit",
+    "password": "Pgx6V25s"
+  },
+  {
+    "_id": "5c517842a78a5a2f8106fa8d",
+    "name": "Louise Morgan",
+    "role": "admin",
+    "password": "YqScb452"
+  },
+  {
+    "_id": "5c517842500188fe4a79043f",
+    "name": "Debbie Moran",
+    "role": "edit",
+    "password": "Pt4dj79R"
+  },
+  {
+    "_id": "5c5178426644fce6495859bc",
+    "name": "Milagros Wade",
+    "role": "admin",
+    "password": "j46eP8jD"
+  },
+  {
+    "_id": "5c5178429b2d6a215a7cd730",
+    "name": "Baird Mendoza",
+    "role": "admin",
+    "password": "Ygr2gT87"
+  },
+  {
+    "_id": "5c517842d862071dbf0f31da",
+    "name": "Joyce Ellis",
+    "role": "edit",
+    "password": "443qNBfn"
+  }
+]
