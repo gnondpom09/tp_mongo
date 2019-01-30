@@ -28,7 +28,7 @@
       						<label for="middle-label" class="text-right middle">Ville * :</label>
     					</div>
     					<div class="medium-2 cell">
-      						<input type="text" id="middle-label" placeholder="">
+      						<input type="text" id="middle-label"  name="ville" placeholder="">
    						</div>
 					</div>
 					<div class="grid-x grid-padding-x align-spaced">
@@ -36,7 +36,7 @@
       						<label for="middle-label" class="text-right middle">Département</label>
     					</div>
     					<div class="medium-2 cell">
-      						<input type="text" id="middle-label" placeholder="">
+      						<input type="text" id="middle-label" name="departement" placeholder="">
    						</div>
 					</div>
 					<div class="grid-x grid-padding-x align-spaced">
@@ -44,7 +44,7 @@
       						<label for="middle-label" class="text-right middle">Région</label>
     					</div>
     					<div class="medium-2 cell">
-      						<input type="text" id="middle-label" placeholder="">
+      						<input type="text" id="middle-label" name="region" placeholder="">
    						</div>
 					</div>
 
@@ -58,7 +58,7 @@
 						</fieldset>	
 					</div>
 					 -->
-					 
+
 					<button class="hollow button rounded bordered" type="submit" href="#">Envoyez</button>
 				</form>
 			</div>
@@ -66,6 +66,50 @@
 			<div class="cell medium-4 medium-cell-block-y">
 				<table class="hover">
 					<?php
+						include_once 'connexion.php';
+						$collname = 'villes';
+						try {
+							if (isset($_GET['submit'])) {
+								$nomVille = $_GET[ville].value;
+								$pipeline = [
+									['$match' => ['nom' => $nomVille]],
+									['$lookup' => ['from' => 'departements',
+												   'localField' => '_id_dept',
+												   'foreignField' => '_id',
+												   'as' => 'dept']],
+									['$unwind' => '$dept'],
+									['$project' => ['_id' => 1,
+													'dept' => ['_id_region' => 1,
+																'nom' => 1],
+													'nom' => 1,
+													'pop' => 1,
+													'cp' => 1,
+													'lat' => 1,
+													'lon' => 1]], 
+									['$lookup' => ['from' => 'regions',
+												   'localField' => 'dept._id_region',
+												   'foreignField' => '_id',
+												   'as' => 'reg']],
+									['$unwind' => '$reg'],
+									['$sort' => ['dept.code' => 1, 'pop' => -1]]
+								];
+								$command = new MongoDB\Drive\Command(['aggregate' => $collname, 'pipeline' => $pipeline]);
+								$rows = $Connexion -> executeCommand($dbname, $command) -> toArray();
+								echo "<ol>\n";
+								foreach($rows as $doc) {
+									echo "<li><ul>\n";
+									foreach ($doc as $key => $val) {
+									printf("<li>%s = <em>%s</em>\n", $key, $val);
+									}
+									echo "</ul></li>\n";    
+								}
+								echo "</ol>\n";
+							} else {
+
+							}
+						} catch (exception $exep) {
+							printf("<p>Erreur : %s</p>\n", htmlspecialchars($exep->getMessage()));
+						}
 					?>
 				</table>
 			</div>
