@@ -69,9 +69,9 @@
                         $filter = [
                             'nom' => $data_rech
                         ];
-
+                        
                         // Check ville /département/région: 
-                        $query             = new MongoDB\Driver\Query($filter);
+                        $query             = new MongoDB\Driver\Query([],  ['projection' => ['nom' => 1, 'pop' => 1, 'cp' => 1]]);
 
                         if( $flag == 1 ) : 
                                 $result    = $manager->executeQuery($db . '.villes', $query);
@@ -89,12 +89,13 @@
                         // affichage curseur dans un tableau pour mise à jour
 
                         
-                        foreach ($result as $doc => $value) {
-                            // $arr[3] sera mis à jour avec chaque valeur de $arr...
-                            echo "{$doc} => {$value} ";
+                        // foreach ($result as $doc => $value) {
+                        //     // $arr[3] sera mis à jour avec chaque valeur de $arr...
+                        //     echo "$doc -> $value ";
                             print_r($result);
-                        }
+                        // }
                         ?>
+
 
                         <table class='table'>
                             <thead>
