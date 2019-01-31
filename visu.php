@@ -50,7 +50,7 @@
 
 									//aggregation
 									$pipeline_pre = [
-										['$match' => ['nom' => $cityname]],
+										['$match' => ['nom' => new MongoDB\BSON\Regex('^'.$cityname.'$','i')]],
 										['$lookup' => ['from' => 'departements',
 													   'localField' => '_id_dept',
 													   'foreignField' => '_id',
@@ -111,7 +111,7 @@
 
 								//aggragation
 								$pipeline_1 = [
-									['$match' => ['nom' => $cityname]],
+									['$match' => ['nom' => new MongoDB\BSON\Regex('^'.$cityname.'$','i')]],
 									['$lookup' => ['from' => 'departements',
 												   'localField' => '_id_dept',
 												   'foreignField' => '_id',
@@ -150,7 +150,7 @@
 								
 								//aggragation
 								$pipeline_2 = [
-									['$match' => ['nom' => $cityname]],
+									['$match' => ['nom' => new MongoDB\BSON\Regex('^'.$cityname.'$','i')]],
 									['$lookup' => ['from' => 'departements',
 												   'localField' => '_id_dept',
 												   'foreignField' => '_id',
@@ -164,7 +164,7 @@
 													'cp' => 1,
 													'lat' => 1,
 													'lon' => 1]], 
-									['$match' => ['dept.nom' => $deptname]],
+									['$match' => ['dept.nom' => new MongoDB\BSON\Regex('^'.$deptname.'$','i')]],
 									['$lookup' => ['from' => 'regions',
 												   'localField' => 'dept._id_region',
 												   'foreignField' => '_id',
