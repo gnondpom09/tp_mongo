@@ -1,9 +1,4 @@
 
-        <!-- Menu -->
-        <!-- <div class="title-bar" data-responsive-toggle="example-animated-menu" data-hide-for="medium">
-            <button class="menu-icon" type="button" data-toggle></button>
-            <div class="title-bar-title">Menu</div>
-        </div> -->
 
         <div class="top-bar" id="example-animated-menu" data-animate="hinge-in-from-top hinge-out-from-top">
         <h5 class="menu-text">LDNR</h5>
@@ -11,7 +6,7 @@
                 <ul class="dropdown menu" data-dropdown-menu>
                     <li><a href="index.php">Accueil</a></li>
                     <li><a href="visu.php">Visualisation</a></li>
-                    <li><a href="maintenance.php">Maintenance</a></li>
+                    <li><a href="<?= redirect(); ?>">Maintenance</a></li>
                 </ul>
             </div>
         </div>
