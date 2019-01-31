@@ -3,80 +3,74 @@
 
     // Connect to database
     require_once 'connexion.php'; 
-    // $messages = array(
-    //     1 => 'Enregistrement supprimé!',
-    //     2 => 'Une erreur est survenue, veuillez réessayer plus tard', 
-    //     3 => 'Enregistrement éffectué avec succès!',
-    //     4 => 'Enregistrement mis à jour', 
-    //     5 => 'Tous les champs sont requis',
-    //     6 => 'Les mots de passe doivent etre identiques'
-    // );
-    // $state = (isset($_GET['state'])) ? intval($_GET['state']) : 0 ;
-    // $message = ($state) ? $messages[$state] : '' ;
+
     $collectionName = 'users';
     $collection = $db . '.' . $collectionName;
 
-    // login authentication
-    if (isset($_POST['login'])) {
-        if (isset($_POST['email']) && isset($_POST['password'])) {
+    if ($_POST) {
+        // login authentication
+        if (isset($_POST['login'])) {
+            if (!empty($_POST['email']) && !empty($_POST['password'])) {
 
-            // get identifiers
-            $email    = htmlspecialchars($_POST['email']);
-            $password = htmlspecialchars($_POST['password']);
-            
-            // get name of user logged with email and password
-            $filter = [
-                'email' => $email, 
-                'password' => $password
-            ];
-            // Check if user is in database
-            $query      = new MongoDB\Driver\Query($filter);
-            $res        = $manager->executeQuery($collection, $query);
-            $userLogged = current($res->toArray());
-
-        } else {
-            // display error 
-            $state = 5;
-        } 
-    }
-
-    // Regiter new user
-    if (isset($_POST['signup'])) {
-        if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['repeat'])) {
-            // get values of register form
-            $pseudo   = htmlspecialchars($_POST['name']);
-            $email    = htmlspecialchars($_POST['email']);
-            $password = htmlspecialchars($_POST['password']);
-            $repeat   = htmlspecialchars($_POST['repeat']);
-            // Check if user exists
-            if ($password == $repeat) {
-                // add new user
-                $insertUser = new MongoDB\Driver\BulkWrite;
-                $insertUser->insert([
-                    'name' => $pseudo,
-                    'email' => $email,
-                    'role'  => 'edit',
+                // get identifiers
+                $email    = htmlspecialchars($_POST['email']);
+                $password = htmlspecialchars($_POST['password']);
+                
+                // get name of user logged with email and password
+                $filter = [
+                    'email' => $email, 
                     'password' => $password
-                ]);
-                $writeConcern = new MongoDB\Driver\WriteConcern(MongoDB\Driver\WriteConcern::MAJORITY, 1000);
-                $result = $manager->executeBulkWrite($collection, $insertUser, $writeConcern);
-                if ($result->getInsertedCount()) {
-                    // success
-                    $state = 4;
-                } else {
-                    // display error
-                    $state = 2;
-                } 
+                ];
+                // Check if user is in database
+                $query      = new MongoDB\Driver\Query($filter);
+                $res        = $manager->executeQuery($collection, $query);
+                $userLogged = current($res->toArray());
+                $state = 0;
+
             } else {
-                // passwords differents
-                $state = 6;
+                // display error 
+                $state = 5;
+            } 
+        }
+
+        // Regiter new user
+        if (isset($_POST['signup'])) {
+            if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['repeat'])) {
+                // get values of register form
+                $pseudo   = htmlspecialchars($_POST['name']);
+                $email    = htmlspecialchars($_POST['email']);
+                $password = htmlspecialchars($_POST['password']);
+                $repeat   = htmlspecialchars($_POST['repeat']);
+                // Check if user exists
+                if ($password == $repeat) {
+                    // add new user
+                    $insertUser = new MongoDB\Driver\BulkWrite;
+                    $insertUser->insert([
+                        'name' => $pseudo,
+                        'email' => $email,
+                        'role'  => 'edit',
+                        'password' => $password
+                    ]);
+                    $writeConcern = new MongoDB\Driver\WriteConcern(MongoDB\Driver\WriteConcern::MAJORITY, 1000);
+                    $result = $manager->executeBulkWrite($collection, $insertUser, $writeConcern);
+                    if ($result->getInsertedCount()) {
+                        // success
+                        $state = 4;
+                    } else {
+                        // display error
+                        $state = 2;
+                    } 
+                } else {
+                    // passwords differents
+                    $state = 6;
+                }
+            } else {
+                // all fields required
+                $state = 5;
             }
-        } else {
-            // all fields required
-            $state = 5;
         }
         header("Location: index.php?state=$state");
-        exit; 
+        // exit; 
     }
 ?>
 <!DOCTYPE html>
@@ -92,6 +86,7 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/revealer.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 <body class="demo-modal">
 
