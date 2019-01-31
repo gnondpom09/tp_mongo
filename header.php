@@ -5,16 +5,28 @@
     require_once 'connexion.php'; 
 
     $collectionName = 'users';
-    $collection = $db . '.' . $collectionName;
-    $url =  $_SERVER['REQUEST_URI'];
+    $collection     = $db . '.' . $collectionName;
+    $url            =  $_SERVER['REQUEST_URI'];
 
     // redirect if user not logged on maiontenance page
-    if ($url == '/tp_mongo/maintenance.php') {
+    function redirect() {
         if (isset($_SESSION['user_logged'])) {
-            //header("Location : index.php");
-            echo $_SESSION['user_logged'];
-        } 
+            // display page maintenance
+            return 'maintenance.php';
+        } else {
+            // redirect
+            return 'index.php';
+        }
     }
+    function logout() {
+        if (isset($_POST['logout'])) {
+            // logout user
+            unset($_SESSION['user_logged']);
+            $userLogged = null;
+            session_destroy();
+        }
+    }
+
 
     if ($_POST) {
         // login authentication
@@ -34,13 +46,12 @@
                 $query      = new MongoDB\Driver\Query($filter);
                 $res        = $manager->executeQuery($collection, $query);
                 $userLogged = current($res->toArray());
-                $state = 0;
+                $state      = 0;
 
             } else {
                 // display error 
                 $state = 5;
             } 
-            //header("Location : index.php?state=$state");
         }
 
         // Regiter new user
@@ -80,9 +91,10 @@
                 // all fields required
                 $state = 5;
             }
-            //header("Location: index.php?state=$state");
         }
-        //header("Location: index.php?state=$state");
+        if ($url !== '/tp_mongo/maintenance.php') {
+            header("Location: " . $url . "?state=$state");
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -130,43 +142,47 @@
                                 echo "Bonjour " . $userLogged->name;
                                 ?>
                                 <form action="" method="post">
-                                    <input type="submit" name="logout" id="logout" class="btn-login menu-item" value="Déconnexion">
+                                    <a href="<?= logout(); ?>">
+                                        <input type="submit" name="logout" id="logout" class="btn-login menu-item" value="Déconnexion">
+                                    </a>
                                 </form>
                                 <?php
                             else :
-                                echo "Veuillez vous identifier";
                                 ?>
                                 <button class="btn-login btn--modal-open menu-item">
                                     <i class="far fa-user"></i> Connexion
                                 </button>
                                 <?php
                             endif;
-
-                            // Event logout
-                            if (isset($_POST['logout'])) {
-                                // logout user
-                                unset($_SESSION['user_logged']);
-                                $userLogged = null;
-                                session_destroy();
-                            }
                         ?>
+                        <div class="message"><?= $message ?></div>
                     </li>
                 </ul>
             </nav>
-            <div class="message"><?= $message ?></div>
 
             <div class="modal">
                 <img src="ressources/ldnr_logo.png" alt="logo">
                 <div class="modal__inner">
                     <form action="" method="post" id="login-form">
-                        <p class="login-email">
-                            <label for="email-user">Email</label>
-                            <input type="email" name="email" id="email-user" placeholder="Email" >
-                        </p>
-                        <p class="login-password">
-                            <label for="pass-user">Mot de passe</label>
-                            <input type="password" name="password" id="pass-user" placeholder="Mot de passe" >
-                        </p>
+
+                        <div class="form-icons">
+
+                            <div class="input-group">
+                                <span class="input-group-label">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                                <input name="email" class="input-group-field" type="text" placeholder="Email">
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-label">
+                                    <i class="fa fa-key"></i>
+                                </span>
+                                <input name="password" class="input-group-field" type="password" placeholder="Password">
+                            </div>
+
+                        </div>
+
                         <input type="submit" value="Connexion" name="login">
                         <p class="legend">Pas encore inscrit?</p>
                         <p id="open-register" class="btn btn--modal-register">S'enregister</p>
@@ -178,22 +194,39 @@
                 <img src="ressources/ldnr_logo.png" alt="logo">
                 <div class="modal__inner">
                     <form action="" method="post" id="register-user">
-                        <p class="login-name">
-                            <label for="email-user">Pseudo</label>
-                            <input type="text" name="name" id="pseudo-user" placeholder="Pseudo" >
-                        </p>
-                        <p class="login-email">
-                            <label for="email-user">Email</label>
-                            <input type="email" name="email" id="email-user" placeholder="Email" >
-                        </p>
-                        <p class="login-password">
-                            <label for="pass-user">Mot de passe</label>
-                            <input type="password" name="password" id="pass-user" placeholder="Mot de passe" >
-                        </p>
-                        <p class="login-password">
-                            <label for="repeat-password">Mot de passe</label>
-                            <input type="password" name="repeat" id="repeat-password" placeholder="Répéter le mot de passe" >
-                        </p>
+
+                        <div class="form-icons">
+
+                            <div class="input-group">
+                                <span class="input-group-label">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <input name="name" class="input-group-field" type="text" placeholder="Full name">
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-label">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                                <input name="email" class="input-group-field" type="text" placeholder="Email">
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-label">
+                                    <i class="fa fa-key"></i>
+                                </span>
+                                <input name="password" class="input-group-field" type="password" placeholder="Password">
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-label">
+                                    <i class="fa fa-key"></i>
+                                </span>
+                                <input name="repeat" class="input-group-field" type="password" placeholder="Password">
+                            </div>
+
+                        </div>
+
                         <input type="submit" name="signup" value="Créer mon compte">
                     </form>
                 </div>
