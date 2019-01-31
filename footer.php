@@ -1,21 +1,24 @@
-    <!-- Menu -->
-    <div class="title-bar" data-responsive-toggle="example-animated-menu" data-hide-for="medium">
-        <button class="menu-icon" type="button" data-toggle></button>
-        <div class="title-bar-title">Menu</div>
-    </div>
 
-    <div class="top-bar" id="example-animated-menu" data-animate="hinge-in-from-top hinge-out-from-top">
-    <h5 class="menu-text">LDNR</h5>
-        <div class="top-bar-right">
-            <ul class="dropdown menu" data-dropdown-menu>
-                <li><a href="index.php">Accueil</a></li>
-                <li><a href="visu.php">Visualisation</a></li>
-                <li><a href="maintenance.php">Maintenance</a></li>
-            </ul>
+        <!-- Menu -->
+        <!-- <div class="title-bar" data-responsive-toggle="example-animated-menu" data-hide-for="medium">
+            <button class="menu-icon" type="button" data-toggle></button>
+            <div class="title-bar-title">Menu</div>
+        </div> -->
+
+        <div class="top-bar" id="example-animated-menu" data-animate="hinge-in-from-top hinge-out-from-top">
+        <h5 class="menu-text">LDNR</h5>
+            <div class="top-bar-right">
+                <ul class="dropdown menu" data-dropdown-menu>
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="visu.php">Visualisation</a></li>
+                    <li><a href="maintenance.php">Maintenance</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
 
-    <div class="overlay"></div>
+        <div class="overlay"></div>
+
+    </div><!-- wrapper -->
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

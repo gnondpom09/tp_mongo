@@ -19,126 +19,128 @@
 </head>
 <body class="demo-modal">
 
-    <header id="masthead" class="site-header">
+    <div class="wrapper">
 
-        <nav id="site-navigation" class="main-navigation">
-            <ul class="menu-login">
-                <li class="toggle-login">
-                    <?php 
-            
-                        // Connect to database
-                        //include_once 'connexion.php'; 
-                        $manager = new \MongoDB\Driver\Manager("mongodb://localhost:27017");
-                        $db = "geo_france";
-                        
-                        if (isset($_SESSION['user_logged'])) {
-                            // get name of user logged with email and password
-                            $filter = [
-                                '_id' => $_SESSION['user_logged']
-                            ];
-                            // Check if user is in database
-                            $query      = new MongoDB\Driver\Query($filter);
-                            $res        = $manager->executeQuery($db . '.users', $query);
-                            $userLogged = current($res->toArray());
-                        } 
+        <header class="site-header">
 
-                        // login authentication
-                        if (isset($_POST['login'])) :
-                            if (isset($_POST['email']) && isset($_POST['password'])) :
-
-                                // get identifiers
-                                $email    = htmlspecialchars($_POST['email']);
-                                $password = htmlspecialchars($_POST['password']);
-                                
+            <nav id="site-navigation" class="main-navigation">
+                <ul class="menu-login">
+                    <li class="toggle-login">
+                        <?php 
+                
+                            // Connect to database
+                            include_once 'connexion.php'; 
+                            
+                            if (isset($_SESSION['user_logged'])) {
                                 // get name of user logged with email and password
                                 $filter = [
-                                    'email' => $email, 
-                                    'password' => $password
+                                    '_id' => $_SESSION['user_logged']
                                 ];
                                 // Check if user is in database
                                 $query      = new MongoDB\Driver\Query($filter);
                                 $res        = $manager->executeQuery($db . '.users', $query);
                                 $userLogged = current($res->toArray());
+                            } 
 
-                            else :
-                                // display error 
-                                echo "Formulaire incomplet";
+                            // login authentication
+                            if (isset($_POST['login'])) :
+                                if (isset($_POST['email']) && isset($_POST['password'])) :
+
+                                    // get identifiers
+                                    $email    = htmlspecialchars($_POST['email']);
+                                    $password = htmlspecialchars($_POST['password']);
+                                    
+                                    // get name of user logged with email and password
+                                    $filter = [
+                                        'email' => $email, 
+                                        'password' => $password
+                                    ];
+                                    // Check if user is in database
+                                    $query      = new MongoDB\Driver\Query($filter);
+                                    $res        = $manager->executeQuery($db . '.users', $query);
+                                    $userLogged = current($res->toArray());
+
+                                else :
+                                    // display error 
+                                    echo "Formulaire incomplet";
+                                endif;
+                                
                             endif;
                             
-                        endif;
+                            // Display message for user logged
+                            if (!empty($userLogged)) :
+                                // Check if user is in database
+                                $_SESSION['user_logged'] = $userLogged->_id;
+                                echo "Bonjour " . $userLogged->name . " " . $_SESSION['user_logged'];
+                                ?>
+                                <form action="" method="post">
+                                    <input type="submit" name="logout" id="logout" class="btn-login menu-item" value="Déconnexion">
+                                </form>
+                                <?php
+                            else :
+                                echo "Veuillez vous identifier";
+                                ?>
+                                <button class="btn-login btn--modal-open menu-item">
+                                    <i class="far fa-user"></i> Connexion
+                                </button>
+                                <?php
+                            endif;
+
+                            // Event logout
+                            if (isset($_POST['logout'])) {
+                                // logout user
+                                unset($_SESSION['user_logged']);
+                                $userLogged = null;
+                                session_destroy();
+                            }
                         
-                        // Display message for user logged
-                        if (!empty($userLogged)) :
-                            // Check if user is in database
-                            $_SESSION['user_logged'] = $userLogged->_id;
-                            echo "Bonjour " . $userLogged->name . " " . $_SESSION['user_logged'];
-                            ?>
-                            <form action="" method="post">
-                                <input type="submit" name="logout" id="logout" class="btn-login menu-item" value="Déconnexion">
-                            </form>
-                            <?php
-                        else :
-                            echo "Veuillez vous identifier";
-                            ?>
-                            <button class="btn-login btn--modal-open menu-item">
-                                <i class="far fa-user"></i> Connexion
-                            </button>
-                            <?php
-                        endif;
+                        ?>
+                    </li>
+                </ul>
+            </nav>
 
-                        // Event logout
-                        if (isset($_POST['logout'])) {
-                            // logout user
-                            unset($_SESSION['user_logged']);
-                            $userLogged = null;
-                            session_destroy();
-                        }
-                    
-                    ?>
-                </li>
-            </ul>
-        </nav>
-
-        <div class="modal">
-            <img src="ressources/ldnr_logo.png" alt="logo">
-            <div class="modal__inner">
-                <form action="" method="post" id="login-form">
-                    <p class="login-email">
-                        <label for="email-user">Email</label>
-                        <input type="email" name="email" id="email-user" placeholder="Email" >
-                    </p>
-                    <p class="login-password">
-                        <label for="pass-user">Mot de passe</label>
-                        <input type="password" name="password" id="pass-user" placeholder="Mot de passe" >
-                    </p>
-                    <input type="submit" value="Connexion" name="login">
-                    <p class="legend">Pas encore inscrit?</p><button class="btn btn--modal-register">S'enregister</button>
-                </form>
+            <div class="modal">
+                <img src="ressources/ldnr_logo.png" alt="logo">
+                <div class="modal__inner">
+                    <form action="" method="post" id="login-form">
+                        <p class="login-email">
+                            <label for="email-user">Email</label>
+                            <input type="email" name="email" id="email-user" placeholder="Email" >
+                        </p>
+                        <p class="login-password">
+                            <label for="pass-user">Mot de passe</label>
+                            <input type="password" name="password" id="pass-user" placeholder="Mot de passe" >
+                        </p>
+                        <input type="submit" value="Connexion" name="login">
+                        <p class="legend">Pas encore inscrit?</p><button class="btn btn--modal-register">S'enregister</button>
+                    </form>
+                </div>
             </div>
-        </div>
 
-        <div class="modal-register">
-            <img src="ressources/ldnr_logo.png" alt="logo">
-            <div class="modal__inner">
-                <form action="" method="post" id="register-user">
-                    <p class="login-email">
-                        <label for="email-user">Email</label>
-                        <input type="email" name="email" id="email-user" placeholder="Email" >
-                    </p>
-                    <p class="login-password">
-                        <label for="pass-user">Mot de passe</label>
-                        <input type="password" name="password" id="pass-user" placeholder="Mot de passe" >
-                    </p>
-                    <p class="login-password">
-                        <label for="repeat-password">Mot de passe</label>
-                        <input type="password" name="repeat" id="repeat-password" placeholder="Répéter le mot de passe" >
-                    </p>
-                    <input type="submit" value="Créer mon compte">
-                </form>
-            </div>
-        </div>
+            <div class="modal-register">
+                <img src="ressources/ldnr_logo.png" alt="logo">
+                <div class="modal__inner">
+                    <form action="" method="post" id="register-user">
+                        <p class="login-email">
+                            <label for="email-user">Email</label>
+                            <input type="email" name="email" id="email-user" placeholder="Email" >
+                        </p>
+                        <p class="login-password">
+                            <label for="pass-user">Mot de passe</label>
+                            <input type="password" name="password" id="pass-user" placeholder="Mot de passe" >
+                        </p>
+                        <p class="login-password">
+                            <label for="repeat-password">Mot de passe</label>
+                            <input type="password" name="repeat" id="repeat-password" placeholder="Répéter le mot de passe" >
+                        </p>
+                        <input type="submit" value="Créer mon compte">
+                    </form>
+                </div>
+            </div> 
 
-    </header>
+        </header>
+
+
 
 
 

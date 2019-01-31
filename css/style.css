@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /******************************************************************************/
 /************************************* VARIABLES ******************************/
 /******************************************************************************/
@@ -7,6 +8,11 @@
 .js, .fontawesome-i2svg-active, .fontawesome-i2svg-complete {
   margin-top: 0 !important; }
 
+html {
+  display: flex;
+  flex-direction: column; }
+
+/* IE fix */
 body {
   color: #fff;
   display: flex;
@@ -24,6 +30,16 @@ body {
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#519af0', endColorstr='#f679e7',GradientType=1 );
   /* IE6-9 fallback on horizontal gradient */ }
+
+.wrapper {
+  flex: 1 1 auto;
+  /* occupe la hauteur restante */
+  display: flex;
+  /* crée un contexte flex pour ses enfants */
+  flex-direction: column;
+  /* affichage vertical */
+  height: 100%;
+  justify-content: space-between; }
 
 a, a:hover, a:visited, a:focus, a:active {
   color: #6AC8EE; }
