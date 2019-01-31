@@ -7,19 +7,9 @@
     <button class="menu-icon" type="button" data-toggle></button>
     <div class="title-bar-title">Menu</div>
 </div>
-<div class="top-bar" id="example-animated-menu" data-animate="hinge-in-from-top hinge-out-from-top">
-    <div class="top-bar-left">
-        <ul class="dropdown menu" data-dropdown-menu>
-            <li class="menu-text">LDNR</li>
-            <li><a href="#">Accueil</a></li>
-            <li><a href="#">Visualisation</a></li>
-            <li><a href="#">Maintenance</a></li>
-        </ul>
-    </div>
-</div>
 
-<div class="modal">
-    <div class="modal__inner">
+<div class="maint">
+    <div class="maint_update">
 
         <form action="" method="post" id="update-form">
 
@@ -27,10 +17,13 @@
                 <p>Veuillez saisir la collection à modifier :</p>
             </div>
 
-            <div id="buttons_type">
-                <button id="maj_ville" type="button" onclick="">ville</button>
-                <button id="maj_dept" type="button" onclick="">dept</button>
-                <button id="maj_region" type="button" onclick="">region</button>
+            <div id="r_collection">
+                <label for="l_ville">Ville</label>
+                <input type="radio" name="r_ville" id="-_ville">
+                <label for="l_dept">Département</label>
+                <input type="radio" name="r_dept" id="r_dept">
+                <label for="l_region"Région></label>
+                <input type="radio" name="r_region" id="r_region">
             </div>
 
             <p class="ville_recherche">
@@ -48,27 +41,20 @@
             <?php
 
 
-if (isset($_GET['ville']) )
+    // if (isset($_POST['ville']) )
+    // {
+        
+    //     }
+    // else
+    // {
 
-{
+    // echo 'Il faut renseigner un nom de ville ou un code département ou un code région !';
 
-    db.villes.find();
-    }
+    // }
 
-}
+    //             $db->villes->find(array("cp" => $update_cp), array("cp" => 1, "pop" => 1));
 
-else
-
-{
-
-   echo 'Il faut renseigner un nom de ville ou un code département ou un code région !';
-
-}
-
-
-            $db->villes->find(array("cp" => $update_cp), array("cp" => 1, "pop" => 1));
-
-            ?>
+    ?>
 
 
             <!-- mise à jour dans la collection ville : -->
