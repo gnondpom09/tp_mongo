@@ -8,21 +8,17 @@
         <!-- Form -->
         <!-- <div class="cell medium-4 medium-cell-block-y"> -->
         <div>
-            <form action="" method="post" id="update-form"></form>
+            <form action="" method="post" id="update-form">
 
                 <div id="intro">
                     <p>Veuillez sélectionner la collection à modifier :</p>
                 </div>
+
                 <p class="r_collection">
-                <!-- <div id="r_collection"> -->
-                    <input type="radio" name="data" id="r_ville" value="r_ville">
-                    <label for="r_ville">Ville</label>
-                    <input type="radio" name="data" id="r_dept" value="r_dept">
-                    <label for="r_dept">Département</label>
-                    <input type="radio" name="data" id="r_region" value="r_region">
-                    <label for="r_region">Région</label>
                 
-                <!-- </div> -->
+                    <input type="radio" name="data" id="r_ville" value="r_ville">Ville
+                    <input type="radio" name="data" id="r_dept" value="r_dept">Département
+                    <input type="radio" name="data" id="r_region" value="r_region">Région
 
                 </p>
 
@@ -36,36 +32,35 @@
 
                 <?php
 
-        
-                if (!empty($_POST['recherche'])) :
-                    echo 'coucou';
-                    $flag_ville  = 0;
-                    $flag_dept   = 0;
-                    $flag_region = 0;
-    
-                    if (isset($_POST['data'])) { 
-                        
-                        echo $_POST['data'];
+                // sélection bouton envoyer
+                if (isset($_POST['recherche'])) :
+                    
+                    $flag = 0;
+                    
+                    // collection sélectionnée
+                    if (isset($_POST['data'])) :
 
-                        if ($_POST['data'] == 'r_ville') {
-                            $flag_ville = 1;
-                            
+                        switch ($_POST['data']) {
+                            case "r_ville":
+                                $flag= 1; 
+                                break;
+                            case "r_dept":
+                                $flag = 2;
+                                break;
+                            case "r_region":
+                                $flag = 3;
+                                break;
                         }
-                        if ($_POST['data'] == 'r_dept') {
-                            $flag_dept = 1;
-                        }
-                        if ($_POST['data'] == 'r_region') {
-                            $flag_region = 1;
-                        }
-                    } else {
+                       
+                    else :
                         echo "Sélectionner au moins une collection.";
-                    }
-    
-               
-                     // select data 
-                 
-                    if (isset($_POST['data_rech'])) :
-
+                        
+                    endif;
+                   
+                     // Récupération nom 
+                     
+                    if (!empty($_POST['data_rech']) && $flag > 0) :
+                
                         // get attribut collection
                         $data_rech    = htmlspecialchars($_POST['data_rech']);
                                                 
@@ -78,39 +73,91 @@
                         // Check ville /département/région: 
                         $query             = new MongoDB\Driver\Query($filter);
 
-                        if( $flag_ville == 1 ) : 
+                        if( $flag == 1 ) : 
                                 $result    = $manager->executeQuery($db . '.villes', $query);
                         else :
-                            if( $flag_dept == 1 ) :
+                            if( $flag == 2 ) :
                                 $result    = $manager->executeQuery($db . '.departements', $query);
                             else :
                                 $result    = $manager->executeQuery($db . '.region', $query);    
                             endif;
                         endif;
 
-                        $data_collection = current($result->toArray());
+                        // $data_collection = current($result->toArray());
+                        // print_r($data_collection);
 
+                        // affichage curseur dans un tableau pour mise à jour
 
-                        print_r($data_collection);
+                        
+                        foreach ($result as $doc => $value) {
+                            // $arr[3] sera mis à jour avec chaque valeur de $arr...
+                            echo "{$doc} => {$value} ";
+                            print_r($result);
+                        }
+                        ?>
+
+                        <table class='table'>
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Code postal</th>
+                                    <th>Population</th>                        
+                                    <th>Divers</th>
+                                </tr>
+                              </thead>
+
+                        <?php 
+                        $i =1; 
+
+                        foreach ($result as $document) {   ?>
+
+                        <tr>
+
+                        <td><?php echo $i; ?></td>
+
+                        <td><?php echo $document->nom;  ?></td>
+
+                        <td><?php echo $document->cp;  ?></td>        
+                        
+                        <td><?php echo $document->pop;  ?></td>
+                        
+                        <td><a class='editlink' data-id=<?php echo $document->nom; ?> 
+                                href='javascript:void(0)'>Edit</a> |
+                            <a onClick ='return confirm("Do you want to remove this
+                                        record?");' 
+                            href='record_delete.php?id=<?php echo $document->nom;  ?>'>Delete</td>
+
+                        </tr>
+
+                        <?php $i++;  
+
+                        } 
+
+                        ?>
+
+                        </table>
+
+                        <?php
 
                     else :
                         // display error 
-                        echo "Formulaire incomplet";
+                        if ( $flag !== 0) :
+                            echo "Formulaire incomplet";
+                        endif;
                     endif;
-                    
+
+                    // $db->villes->find(array("cp" => $update_cp), array("cp" => 1, "pop" => 1));
+
+                    // $bulk = new MongoDB\Driver\BulkWrite;
+                    // $bulk->update(
+                    // ['cp' => $update_cp],
+                    // ['$set' => ['y' => 3]],
+                    // ['multi' => false, 'upsert' => false]
+                    // );
+
+                    // $result = $manager->executeBulkWrite('db.collection', $bulk);
+                
                 endif;
-
-                // $db->villes->find(array("cp" => $update_cp), array("cp" => 1, "pop" => 1));
-
-                // $bulk = new MongoDB\Driver\BulkWrite;
-                // $bulk->update(
-                // ['cp' => $update_cp],
-                // ['$set' => ['y' => 3]],
-                // ['multi' => false, 'upsert' => false]
-                // );
-
-                // $result = $manager->executeBulkWrite('db.collection', $bulk);
-
                 ?> 
         
             </form>
