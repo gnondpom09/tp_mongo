@@ -6,6 +6,15 @@
 
     $collectionName = 'users';
     $collection = $db . '.' . $collectionName;
+    $url =  $_SERVER['REQUEST_URI'];
+
+    // redirect if user not logged on maiontenance page
+    if ($url == '/tp_mongo/maintenance.php') {
+        if (isset($_SESSION['user_logged'])) {
+            //header("Location : index.php");
+            echo $_SESSION['user_logged'];
+        } 
+    }
 
     if ($_POST) {
         // login authentication
@@ -31,6 +40,7 @@
                 // display error 
                 $state = 5;
             } 
+            //header("Location : index.php?state=$state");
         }
 
         // Regiter new user
@@ -41,7 +51,9 @@
                 $email    = htmlspecialchars($_POST['email']);
                 $password = htmlspecialchars($_POST['password']);
                 $repeat   = htmlspecialchars($_POST['repeat']);
-                // Check if user exists
+                
+                // TODO : Check if user exists
+
                 if ($password == $repeat) {
                     // add new user
                     $insertUser = new MongoDB\Driver\BulkWrite;
@@ -68,9 +80,9 @@
                 // all fields required
                 $state = 5;
             }
+            //header("Location: index.php?state=$state");
         }
         //header("Location: index.php?state=$state");
-        // exit; 
     }
 ?>
 <!DOCTYPE html>
@@ -115,7 +127,7 @@
                             if (!empty($userLogged)) :
                                 // Check if user is in database
                                 $_SESSION['user_logged'] = $userLogged->_id;
-                                echo "Bonjour " . $userLogged->name . " " . $_SESSION['user_logged'];
+                                echo "Bonjour " . $userLogged->name;
                                 ?>
                                 <form action="" method="post">
                                     <input type="submit" name="logout" id="logout" class="btn-login menu-item" value="Déconnexion">
