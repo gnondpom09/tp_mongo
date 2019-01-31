@@ -3,15 +3,15 @@
 ?>
 
 		<!-- Container background transparent 40% -->
-				<div class="grid-x grid-padding-x align-spaced">
+		<div class="grid-x grid-padding-x align-spaced" id="center-container">
 
 			<!-- Form -->
-			<div class="cell medium-4 medium-cell-block-y">
+			<div class="cell medium-5 medium-cell-block-y">
 				<form action="" method="get">
 					<?php
 
 						//make the inputs
-						$filtre = ['ville' => 'Ville *', 
+						$filtre = ['ville' => 'Ville*', 
 								   'departement' => 'Département', 
 								   'region' => 'Région'];
 
@@ -21,10 +21,10 @@
 								$input = htmlspecialchars($_GET["filtre"][$key]);
 							}
 							printf('<div class="grid-x grid-padding-x align-spaced">
-										<div class="medium-1 cell">
-      										<label for="middle-label" class="text-right middle">%s</label>
+										<div class="medium-4 cell">
+      										<label for="middle-label" class="text-center middle">%s</label>
     									</div>
-    									<div class="medium-2 cell">
+    									<div class="medium-7 cell">
       										<input type="text" id="middle-label" name="filtre[%s]" value="%s">
    										</div>
 									</div>', $value, $key, $input);
@@ -68,15 +68,15 @@
 									if (sizeof($results_pre) > 1) {
 										$flag = 2;
 										//list out the dept available
-										printf('<div class="grid-x grid-padding-x">
-													<fieldset class="medium-4 cell">
+										printf('<div class="grid-x grid-padding-x align-center">
+													<fieldset class="medium-11 cell">
 														<legend>Il faut choisir un département</legend>');
 										foreach ($results_pre as $key => $value) {
 											$deptname_pre = $value -> dept -> nom;
 											printf('<input type="radio" name="depart" value="%s"><label for="depart">%s</label>', $deptname_pre, $deptname_pre);
 
 										}
-										printf('</fieldset>	
+										printf('</fieldset>
 											</div>');
 										if (isset($_GET['depart'])) {
 											$deptname = htmlspecialchars($_GET['depart']);
@@ -96,13 +96,15 @@
 							printf("<p>Erreur : %s</p>\n", htmlspecialchars($exep->getMessage()));
 						}
 					?>
-					<button class="hollow button rounded bordered" type="submit" href="#">Envoyez</button>
+					<div class="grid-x grid-padding-x align-center">
+						<button class="hollow button" type="submit" href="#">Envoyez</button>
+					</div>
 				</form>
 			</div>
 
 			<!-- Results -->
-			<div class="cell medium-4 medium-cell-block-y">
-				<table class="hover">
+			<div class="cell medium-5 medium-cell-block-y">
+				<table class="hover" id="visu-table">
 					<?php
 						try {
 							if ($flag == 1) {
