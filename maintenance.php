@@ -71,7 +71,7 @@
                         ];
                         
                         // Check ville /département/région: 
-                        $query             = new MongoDB\Driver\Query([],  ['projection' => ['nom' => 1, 'pop' => 1, 'cp' => 1]]);
+                        $query             = new MongoDB\Driver\Query($filter,  ['projection' => ['nom' => 1, 'pop' => 1, 'cp' => 1]]);
 
                         if( $flag == 1 ) : 
                                 $result    = $manager->executeQuery($db . '.villes', $query);
@@ -83,17 +83,7 @@
                             endif;
                         endif;
 
-                        // $data_collection = current($result->toArray());
-                        // print_r($data_collection);
-
-                        // affichage curseur dans un tableau pour mise à jour
-
-                        
-                        // foreach ($result as $doc => $value) {
-                        //     // $arr[3] sera mis à jour avec chaque valeur de $arr...
-                        //     echo "$doc -> $value ";
-                            print_r($result);
-                        // }
+                     
                         ?>
 
 
@@ -108,13 +98,12 @@
                               </thead>
 
                         <?php 
-                        $i =1; 
-
+                      
                         foreach ($result as $document) {   ?>
 
                         <tr>
 
-                        <td><?php echo $i; ?></td>
+        
 
                         <td><?php echo $document->nom;  ?></td>
 
@@ -130,7 +119,7 @@
 
                         </tr>
 
-                        <?php $i++;  
+                        <?php 
 
                         } 
 
