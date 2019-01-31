@@ -3,7 +3,7 @@
 ?>
 
 		<!-- Container background transparent 40% -->
-		<div class="grid-x grid-padding-x align-spaced">
+				<div class="grid-x grid-padding-x align-spaced">
 
 			<!-- Form -->
 			<div class="cell medium-4 medium-cell-block-y">
@@ -44,7 +44,7 @@
 
 						try {
 							if ( (isset($_GET['filtre']['ville']) && isset($_GET['filtre']['departement']) && isset($_GET['filtre']['region'])) ) {
-								if ($_GET['filtre']['ville'] != '' && $_GET['filtre']['departement'] == '' && $_GET['filtre']['region'] == '') {
+								if ( ($_GET['filtre']['ville'] != '' && $_GET['filtre']['departement'] == '' && $_GET['filtre']['region'] == '') || ($_GET['filtre']['ville'] != '' && $_GET['filtre']['departement'] == '' && $_GET['filtre']['region'] !== '') ){
 									$flag = 1;
 									$cityname = htmlspecialchars($_GET['filtre']['ville']);
 
@@ -61,22 +61,26 @@
 																	'nom' => 1],
 														'nom' => 1]]];
 									$command_pre = new MongoDB\Driver\Command(['aggregate' => $collname, 'pipeline' => $pipeline_pre]);
-									$rows_pre = $Connexion -> executeCommand($dbname, $command_pre) -> toArray();
+									$rows_pre = $manager -> executeCommand($db, $command_pre) -> toArray();
 									$results_pre = $rows_pre[0] -> result;
 
 									//verify if the city exists, or there are more than one city have the same name, than change the flag
 									if (sizeof($results_pre) > 1) {
 										$flag = 2;
-										/*controlled by php
-										<div class="grid-x grid-padding-x hidden">
-											<fieldset class="medium-4 cell">
-												<legend>Il faut choisir un département</legend>
-												<input type="radio" name="depart" value="Red" required><label for="depart">Red</label>
-												<input type="radio" name="depart" value="Blue"><label for="depart">Blue</label>
-												<input type="radio" name="depart" value="Yellow"><label for="depart">Yellow</label>
-											</fieldset>	
-										</div>
-										 */
+										//list out the dept available
+										printf('<div class="grid-x grid-padding-x">
+													<fieldset class="medium-4 cell">
+														<legend>Il faut choisir un département</legend>');
+										foreach ($results_pre as $key => $value) {
+											$deptname_pre = $value -> dept -> nom;
+											printf('<input type="radio" name="depart" value="%s"><label for="depart">%s</label>', $deptname_pre, $deptname_pre);
+
+										}
+										printf('</fieldset>	
+											</div>');
+										if (isset($_GET['depart'])) {
+											$deptname = htmlspecialchars($_GET['depart']);
+										}						
 									} elseif (sizeof($results_pre) == 1) {
 										$flag = 1;
 									} else {
@@ -127,7 +131,7 @@
 									['$sort' => ['dept.code' => 1, 'pop' => -1]]
 								];
 								$command_1 = new MongoDB\Driver\Command(['aggregate' => $collname, 'pipeline' => $pipeline_1]);
-								$rows_1 = $Connexion -> executeCommand($dbname, $command_1) -> toArray();
+								$rows_1 = $manager -> executeCommand($db, $command_1) -> toArray();
 
 								//already checked once so need a second time
 								$results_1 = $rows_1[0] -> result[0];
@@ -140,7 +144,7 @@
 								    }
 								    echo "</tr></td>\n";
 								}
-							} elseif ($flag == 2) {
+							} elseif ($flag == 2 && isset($deptname)) {
 								
 								//aggragation
 								$pipeline_2 = [
@@ -167,7 +171,7 @@
 									['$sort' => ['dept.code' => 1, 'pop' => -1]]
 								];
 								$command_2 = new MongoDB\Driver\Command(['aggregate' => $collname, 'pipeline' => $pipeline_2]);
-								$rows_2 = $Connexion -> executeCommand($dbname, $command_2) -> toArray();
+								$rows_2 = $manager -> executeCommand($db, $command_2) -> toArray();
 								$results_2 = $rows_2[0] -> result;
 
 								//check if have a result
