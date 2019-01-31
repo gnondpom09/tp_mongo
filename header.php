@@ -69,7 +69,7 @@
                 $state = 5;
             }
         }
-        header("Location: index.php?state=$state");
+        //header("Location: index.php?state=$state");
         // exit; 
     }
 ?>
