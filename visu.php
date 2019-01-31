@@ -6,8 +6,8 @@
 		<div class="grid-x grid-padding-x align-spaced" id="center-container">
 
 			<!-- Form -->
-			<div class="cell medium-5 medium-cell-block-y">
-				<form action="" method="get">
+			<div class="cell medium-5 medium-cell-block-y" id="form-container">
+				<form action="" method="get" id="visu-form">
 					<?php
 
 						//make the inputs
@@ -22,10 +22,10 @@
 							}
 							printf('<div class="grid-x grid-padding-x align-spaced">
 										<div class="medium-4 cell">
-      										<label for="middle-label" class="text-center middle">%s</label>
+      										<label for="filtre-label" class="text-center middle">%s</label>
     									</div>
     									<div class="medium-7 cell">
-      										<input type="text" id="middle-label" name="filtre[%s]" value="%s">
+      										<input type="text" id="filtre-label" name="filtre[%s]" value="%s">
    										</div>
 									</div>', $value, $key, $input);
 						}
@@ -97,13 +97,13 @@
 						}
 					?>
 					<div class="grid-x grid-padding-x align-center">
-						<button class="hollow button" type="submit" href="#">Envoyez</button>
+						<input type="submit" name="check">
 					</div>
 				</form>
 			</div>
 
 			<!-- Results -->
-			<div class="cell medium-5 medium-cell-block-y">
+			<div class="cell medium-5 medium-cell-block-y" id="table-container">
 				<table class="hover" id="visu-table">
 					<?php
 						try {
@@ -135,7 +135,7 @@
 								$command_1 = new MongoDB\Driver\Command(['aggregate' => $collname, 'pipeline' => $pipeline_1]);
 								$rows_1 = $manager -> executeCommand($db, $command_1) -> toArray();
 
-								//already checked once so need a second time
+								//already checked once so dosen't need a second time
 								$results_1 = $rows_1[0] -> result[0];
 								foreach ($results_1 as $key => $value) {
 									echo "<tr><td>\n";
