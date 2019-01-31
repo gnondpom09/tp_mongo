@@ -4,10 +4,10 @@
 	// Initialize login modal
 	var modalEl = document.querySelector('.modal'),
 	revealer = new RevealFx(modalEl),
-	openRegisterCtrl = modalEl.querySelector('.btn--modal-register'),
+    openRegisterCtrl = document.getElementById('open-register'),
     closeCtrl = document.querySelector('.overlay');
     var primaryColor = '#6AC8EE';
-    var darkColor = '#f679e7';
+    var secondaryColor = '#f679e7';
 
 	//Initialize register modalEl
 	var modalElRegister = document.querySelector('.modal-register'),
@@ -21,7 +21,6 @@
         
         console.log('click');
         
-
 		revealer.reveal({
 			bgcolor: primaryColor,
 			direction: 'tb',
@@ -39,6 +38,8 @@
 
 	// Open modal register form
 	function openRegister(ev) {
+        console.log('open register');
+        
 		// Close login form
 		closeCtrl.removeEventListener('click', closeModal);
 		openRegisterCtrl.removeEventListener('click', openRegister);
@@ -46,7 +47,7 @@
 		$('.overlay').addClass('overlay-show');
 
 		revealer.reveal({
-			bgcolor: ev.target.classList.contains('btn--modal-close') ? primaryColor : darkColor,
+			bgcolor: ev.target.classList.contains('btn--modal-close') ? primaryColor : secondaryColor,
 			direction: 'bt',
 			duration: ev.target.classList.contains('btn--modal-close') ? 200 : 400,
 			easing: 'easeOutCirc',
@@ -80,7 +81,7 @@
 		modalEl.classList.remove('modal--open');
 
 		revealer.reveal({
-			bgcolor: ev.target.classList.contains('btn--modal-close') ? primaryColor : darkColor,
+			bgcolor: ev.target.classList.contains('btn--modal-close') ? primaryColor : secondaryColor,
 			direction: 'bt',
 			duration: ev.target.classList.contains('btn--modal-close') ? 200 : 400,
 			easing: 'easeOutCirc',
@@ -100,7 +101,7 @@
 		modalElRegister.classList.remove('modal--open');
 
 		revealerRegister.reveal({
-			bgcolor: ev.target.classList.contains('btn--modal-close') ? primaryColor : darkColor,
+			bgcolor: ev.target.classList.contains('btn--modal-close') ? primaryColor : secondaryColor,
 			direction: 'bt',
 			duration: ev.target.classList.contains('btn--modal-close') ? 200 : 400,
 			easing: 'easeOutCirc',

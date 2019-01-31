@@ -144,6 +144,9 @@ input[type="submit"] {
     color: $primary !important;
     border: 1px solid $primary;
 }
+#open-register:hover {
+    cursor: pointer;
+}
 
 /******************************************************************************/
 /************************************** Error Page ****************************/

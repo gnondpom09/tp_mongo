@@ -1,5 +1,83 @@
 <?php 
     session_start();
+
+    // Connect to database
+    require_once 'connexion.php'; 
+    // $messages = array(
+    //     1 => 'Enregistrement supprimé!',
+    //     2 => 'Une erreur est survenue, veuillez réessayer plus tard', 
+    //     3 => 'Enregistrement éffectué avec succès!',
+    //     4 => 'Enregistrement mis à jour', 
+    //     5 => 'Tous les champs sont requis',
+    //     6 => 'Les mots de passe doivent etre identiques'
+    // );
+    // $state = (isset($_GET['state'])) ? intval($_GET['state']) : 0 ;
+    // $message = ($state) ? $messages[$state] : '' ;
+    $collectionName = 'users';
+    $collection = $db . '.' . $collectionName;
+
+    // login authentication
+    if (isset($_POST['login'])) {
+        if (isset($_POST['email']) && isset($_POST['password'])) {
+
+            // get identifiers
+            $email    = htmlspecialchars($_POST['email']);
+            $password = htmlspecialchars($_POST['password']);
+            
+            // get name of user logged with email and password
+            $filter = [
+                'email' => $email, 
+                'password' => $password
+            ];
+            // Check if user is in database
+            $query      = new MongoDB\Driver\Query($filter);
+            $res        = $manager->executeQuery($collection, $query);
+            $userLogged = current($res->toArray());
+
+        } else {
+            // display error 
+            $state = 5;
+        } 
+    }
+
+    // Regiter new user
+    if (isset($_POST['signup'])) {
+        if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['repeat'])) {
+            // get values of register form
+            $pseudo   = htmlspecialchars($_POST['name']);
+            $email    = htmlspecialchars($_POST['email']);
+            $password = htmlspecialchars($_POST['password']);
+            $repeat   = htmlspecialchars($_POST['repeat']);
+            // Check if user exists
+            if ($password == $repeat) {
+                // add new user
+                $insertUser = new MongoDB\Driver\BulkWrite;
+                $insertUser->insert([
+                    'name' => $pseudo,
+                    'email' => $email,
+                    'role'  => 'edit',
+                    'password' => $password
+                ]);
+                $writeConcern = new MongoDB\Driver\WriteConcern(MongoDB\Driver\WriteConcern::MAJORITY, 1000);
+                $result = $manager->executeBulkWrite($collection, $insertUser, $writeConcern);
+                if ($result->getInsertedCount()) {
+                    // success
+                    $state = 4;
+                } else {
+                    // display error
+                    $state = 2;
+                } 
+            } else {
+                // passwords differents
+                $state = 6;
+            }
+        } else {
+            // all fields required
+            $state = 5;
+        }
+        header("Location: index.php?state=$state");
+        exit; 
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -8,10 +86,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Geo France</title>
-    <!-- Compressed CSS -->
+    <!-- Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.1/dist/css/foundation.min.css" integrity="sha256-1mcRjtAxlSjp6XJBgrBeeCORfBp/ppyX4tsvpQVCcpA= sha384-b5S5X654rX3Wo6z5/hnQ4GBmKuIJKMPwrJXn52ypjztlnDK2w9+9hSMBz/asy9Gw sha512-M1VveR2JGzpgWHb0elGqPTltHK3xbvu3Brgjfg4cg5ZNtyyApxw/45yHYsZ/rCVbfoO5MSZxB241wWq642jLtA==" crossorigin="anonymous">
-
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.5.1/css/foundation.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/style.css">
@@ -27,10 +103,8 @@
                 <ul class="menu-login">
                     <li class="toggle-login">
                         <?php 
-                
-                            // Connect to database
-                            include_once 'connexion.php'; 
-                            
+
+                            // Display message for user logged
                             if (isset($_SESSION['user_logged'])) {
                                 // get name of user logged with email and password
                                 $filter = [
@@ -38,36 +112,11 @@
                                 ];
                                 // Check if user is in database
                                 $query      = new MongoDB\Driver\Query($filter);
-                                $res        = $manager->executeQuery($db . '.users', $query);
+                                $res        = $manager->executeQuery($collection, $query);
                                 $userLogged = current($res->toArray());
                             } 
 
-                            // login authentication
-                            if (isset($_POST['login'])) :
-                                if (isset($_POST['email']) && isset($_POST['password'])) :
-
-                                    // get identifiers
-                                    $email    = htmlspecialchars($_POST['email']);
-                                    $password = htmlspecialchars($_POST['password']);
-                                    
-                                    // get name of user logged with email and password
-                                    $filter = [
-                                        'email' => $email, 
-                                        'password' => $password
-                                    ];
-                                    // Check if user is in database
-                                    $query      = new MongoDB\Driver\Query($filter);
-                                    $res        = $manager->executeQuery($db . '.users', $query);
-                                    $userLogged = current($res->toArray());
-
-                                else :
-                                    // display error 
-                                    echo "Formulaire incomplet";
-                                endif;
-                                
-                            endif;
-                            
-                            // Display message for user logged
+                            // Display login of logout button
                             if (!empty($userLogged)) :
                                 // Check if user is in database
                                 $_SESSION['user_logged'] = $userLogged->_id;
@@ -93,11 +142,11 @@
                                 $userLogged = null;
                                 session_destroy();
                             }
-                        
                         ?>
                     </li>
                 </ul>
             </nav>
+            <div class="message"><?= $message ?></div>
 
             <div class="modal">
                 <img src="ressources/ldnr_logo.png" alt="logo">
@@ -112,7 +161,8 @@
                             <input type="password" name="password" id="pass-user" placeholder="Mot de passe" >
                         </p>
                         <input type="submit" value="Connexion" name="login">
-                        <p class="legend">Pas encore inscrit?</p><button class="btn btn--modal-register">S'enregister</button>
+                        <p class="legend">Pas encore inscrit?</p>
+                        <p id="open-register" class="btn btn--modal-register">S'enregister</p>
                     </form>
                 </div>
             </div>
@@ -121,6 +171,10 @@
                 <img src="ressources/ldnr_logo.png" alt="logo">
                 <div class="modal__inner">
                     <form action="" method="post" id="register-user">
+                        <p class="login-name">
+                            <label for="email-user">Pseudo</label>
+                            <input type="text" name="name" id="pseudo-user" placeholder="Pseudo" >
+                        </p>
                         <p class="login-email">
                             <label for="email-user">Email</label>
                             <input type="email" name="email" id="email-user" placeholder="Email" >
@@ -133,7 +187,7 @@
                             <label for="repeat-password">Mot de passe</label>
                             <input type="password" name="repeat" id="repeat-password" placeholder="Répéter le mot de passe" >
                         </p>
-                        <input type="submit" value="Créer mon compte">
+                        <input type="submit" name="signup" value="Créer mon compte">
                     </form>
                 </div>
             </div> 
