@@ -111,15 +111,16 @@
                                 foreach ($result as $document) {   
                                 ?>
 
+                                <!-- City table --> 
                                     <tr>
                                         <td><!-- Readonly for transmit the name-->
-                                            <input type="text" name="data_nom" value=<?php echo $document->nom;  ?> readonly>
+                                            <?php printf('<input type="text" name="data_nom" value="%s" readonly>', $document->nom); ?>
                                         </td>
                                         <td>
-                                            <input type="text" name="data_cp" value=<?php echo $document->cp;  ?> >
+                                            <?php printf('<input type="text" name="data_cp" value="%s">', $document->cp); ?>
                                         </td>           
                                         <td>
-                                            <input type="text" name="data_pop" value=<?php echo $document->pop;  ?> >
+                                            <?php printf('<input type="text" name="data_pop" value="%s">', $document->pop); ?>
                                         </td>
                                         <td>
                                             <input type="submit" value="Validez" name="valider">
@@ -153,12 +154,13 @@
                                     foreach ($result as $document) {   
                                     ?>
 
+                                    <!-- Dept table -->
                                         <tr>
                                             <td><!-- Readonly for transmit the name-->
-                                                <input type="text" name="data_nom" value=<?php echo $document->nom;  ?> readonly>
+                                                <?php printf('<input type="text" name="data_nom" value="%s" readonly>', $document->nom); ?>
                                             </td>         
                                             <td>
-                                                <input type="text" name="data_id" value=<?php echo $document->_id_region;  ?> >
+                                                <?php printf('<input type="text" name="data_id" value="%s">', $document->_id_region); ?>
                                             </td>
                                             <td>
                                                 <input type="submit" value="Validez" name="valider">
@@ -191,12 +193,13 @@
                                     foreach ($result as $document) {   
                                     ?>
 
+                                    <!-- Region table -->
                                         <tr>
                                             <td><!-- Readonly for transmit the name-->
-                                                <input type="text" name="data_nom" value=<?php echo $document->nom;  ?> readonly>
+                                                <?php printf('<input type="text" name="data_nom" value="%s" readonly>', $document->nom); ?>
                                             </td>
                                             <td>
-                                                <input type="text" name="data_nom_modif" value=<?php echo $document->nom;  ?> >
+                                                <?php printf('<input type="text" name="data_nom_modif" value="%s">', $document->nom); ?>
                                             </td>
                                             <td>
                                                 <input type="submit" value="Validez" name="valider">
@@ -220,14 +223,14 @@
                         endif;              
                     endif;
 
-                    /**  Update  **  must do this if out of the loop  
-                    *    $_POST['data_collection'] -> collection name
-                    *    $_POST['data_nom'] -> name of city/dept/region
-                    *    $_POST['data_cp'] -> code postale
-                    *    $_POST['data_pop'] -> population
-                    *    $_POST['data_id'] -> _id_region
-                    *    $_POST['data_nom_modif'] -> modified region name 
-                    *
+                    /**  Update  **  must do this if out of the loop before * 
+                    *    $_POST['data_collection'] -> collection            *
+                    *    $_POST['data_nom'] -> name of city/dept/region     * 
+                    *    $_POST['data_cp'] -> code postale                  *
+                    *    $_POST['data_pop'] -> population                   *
+                    *    $_POST['data_id'] -> _id_region                    *
+                    *    $_POST['data_nom_modif'] -> modified region name   *
+                    * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
                     */  
                     if (isset($_POST['valider'])) :
 
