@@ -44,10 +44,7 @@ body {
 a, a:hover, a:visited, a:focus, a:active {
   color: #6AC8EE; }
 
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
+.submit {
   color: #fff !important;
   font-weight: 600 !important;
   padding: 10px;
@@ -57,24 +54,27 @@ input[type="submit"] {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1;
-  padding: .6em 1em .4em;
+  padding: .6em .4em;
   border: 0; }
 
 .menu-login {
   list-style: none;
   padding: 20px; }
-  .menu-login .btn-login {
+  .menu-login .clear {
     background-color: transparent !important;
     position: absolute;
     right: 20px;
+    top: 20px;
     text-transform: uppercase;
-    padding: 5px 20px; }
+    padding: 5px 20px;
+    color: #fff !important;
+    border: 0 !important; }
 
 .top-bar {
   padding: 20px 40px; }
 
 /******************************************************************************/
-/****************************************** HOME ******************************/
+/*************************************** CONTENT ******************************/
 /******************************************************************************/
 h1 {
   text-transform: uppercase;
@@ -90,6 +90,50 @@ h1 {
 
 table tr td {
   color: #252525 !important; }
+
+#center-container, #form_maint {
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 40px;
+  padding: 40px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.35); }
+  #center-container form, #center-container #update-form, #form_maint form, #form_maint #update-form {
+    width: 100%; }
+    #center-container form .grid-x, #center-container #update-form .grid-x, #form_maint form .grid-x, #form_maint #update-form .grid-x {
+      display: flex;
+      justify-content: space-between; }
+      #center-container form .grid-x .cell, #center-container #update-form .grid-x .cell, #form_maint form .grid-x .cell, #form_maint #update-form .grid-x .cell {
+        padding: 0; }
+    #center-container form label, #center-container #update-form label, #form_maint form label, #form_maint #update-form label {
+      color: #fff !important; }
+    #center-container form input[type="text"], #center-container #update-form input[type="text"], #form_maint form input[type="text"], #form_maint #update-form input[type="text"] {
+      border-radius: 8px;
+      border: 0; }
+    #center-container form input[type="radio"], #center-container #update-form input[type="radio"], #form_maint form input[type="radio"], #form_maint #update-form input[type="radio"] {
+      position: relative;
+      top: -2px;
+      margin-right: 10px !important; }
+    #center-container form .data_rech, #center-container #update-form .data_rech, #form_maint form .data_rech, #form_maint #update-form .data_rech {
+      display: inline-block;
+      width: 48%;
+      padding: 0; }
+      #center-container form .data_rech label, #center-container #update-form .data_rech label, #form_maint form .data_rech label, #form_maint #update-form .data_rech label {
+        margin-bottom: 10px; }
+    #center-container form .button, #center-container form input[type="submit"], #center-container #update-form .button, #center-container #update-form input[type="submit"], #form_maint form .button, #form_maint form input[type="submit"], #form_maint #update-form .button, #form_maint #update-form input[type="submit"] {
+      color: #fff !important;
+      font-weight: 700 !important;
+      text-transform: uppercase;
+      background-color: transparent !important;
+      margin: 5px 0;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #fff;
+      width: 100%;
+      height: 40px; }
+  #center-container #update-form input[type="submit"], #form_maint #update-form input[type="submit"] {
+    width: 48%;
+    background-color: transparent !important;
+    padding: 0; }
 
 /******************************************************************************/
 /******************************* LOGIN FORM ***********************************/

@@ -12,7 +12,7 @@
     function redirect() {
         if (isset($_SESSION['user_logged'])) {
             // display page maintenance
-            return 'maintenance.php';
+            return 'mtn.php';
         } else {
             // redirect
             return 'index.php';
@@ -92,7 +92,7 @@
                 $state = 5;
             }
         }
-        if ($url !== '/tp_mongo/maintenance.php') {
+        if ($url !== '/tp_mongo/mtn.php') {
             header("Location: " . $url . "?state=$state");
         }
     }
@@ -143,13 +143,13 @@
                                 ?>
                                 <form action="" method="post">
                                     <a href="<?= logout(); ?>">
-                                        <input type="submit" name="logout" id="logout" class="btn-login menu-item" value="Déconnexion">
+                                        <input type="submit" name="logout" id="logout" class="clear btn-login menu-item" value="Déconnexion">
                                     </a>
                                 </form>
                                 <?php
                             else :
                                 ?>
-                                <button class="btn-login btn--modal-open menu-item">
+                                <button class="clear btn-login btn--modal-open menu-item">
                                     <i class="far fa-user"></i> Connexion
                                 </button>
                                 <?php
@@ -183,7 +183,7 @@
 
                         </div>
 
-                        <input type="submit" value="Connexion" name="login">
+                        <input type="submit" class="submit" value="Connexion" name="login">
                         <p class="legend">Pas encore inscrit?</p>
                         <p id="open-register" class="btn btn--modal-register">S'enregister</p>
                     </form>
@@ -227,7 +227,7 @@
 
                         </div>
 
-                        <input type="submit" name="signup" value="Créer mon compte">
+                        <input type="submit" class="submit" name="signup" value="Créer mon compte">
                     </form>
                 </div>
             </div> 
