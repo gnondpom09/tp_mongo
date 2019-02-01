@@ -1,8 +1,8 @@
 <?php 
-	include 'header.php'; 
+    include 'header.php'; 
 ?>
 
-	<!-- Container background transparent 40% -->
+    <!-- Container background transparent 40% -->
     <div class="grid-x grid-padding-x align-center">
 
         <!-- Form -->
@@ -38,20 +38,17 @@
                 ?>
             </div>
 
-            <!-- Name input -->
+            <!-- Name input & Submit button -->
             <div class="cell">
                 <label for="data_rech">Saisir votre recherche</label>
                 <input type="text" name="data_rech" id="data_rech" size="33<" placeholder="saisir nom ville ou département ou région">
-            </div>
 
-            <!-- Submit button-->
-            <div class="cell">
                 <input type="submit" value="envoyer" name="recherche">
             </div>
         </form>
 
         <!-- Operational Table -->
-        <div class="medium-8 cell">
+        <div class="medium-8 cell" id="table-container">
             <table class='table'>
                 
                 <?php
@@ -103,10 +100,11 @@
                                 <tr>
                                     <th>Nom</th>
                                     <th>Code postal</th>
-                                    <th>Population</th>                        
+                                    <th>Population</th>
+                                    <th>Opération</th>                        
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="modif">
 
                             <?php                       
                             foreach ($result as $document) {   
@@ -116,6 +114,7 @@
                                     <td><?php echo $document->nom;  ?></td>
                                     <td><?php echo $document->cp;  ?></td>           
                                     <td><?php echo $document->pop;  ?></td>
+                                    <td><a class='editlink'>Edit</a></td>
                                 </tr>
 
                             <?php 
@@ -134,10 +133,11 @@
                                 <thead>
                                     <tr>
                                         <th>Nom</th>
-                                        <th>Appartenance au Région</th>                      
+                                        <th>Appartenance au Région</th>
+                                        <th>Opération</th>                       
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="modif">
 
                                 <?php                       
                                 foreach ($result as $document) {   
@@ -146,6 +146,7 @@
                                     <tr>
                                         <td><?php echo $document->nom;  ?></td>         
                                         <td><?php echo $document->_id_region;  ?></td>
+                                        <td><a class='editlink'?> >Edit</a></td>
                                     </tr>
 
                                 <?php 
@@ -162,17 +163,19 @@
 
                                 <thead>
                                     <tr>
-                                        <th>Nom</th>                   
+                                        <th>Nom</th>
+                                        <th>Opération</th>                    
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="modif">
 
                                 <?php                       
                                 foreach ($result as $document) {   
                                 ?>
 
                                     <tr>
-                                        <td><?php echo $document->nom;  ?></td>         
+                                        <td><?php echo $document->nom;  ?></td>
+                                        <td><a class='editlink'>nom; ?> >Edit</a></td>        
                                     </tr>
 
                                 <?php 
@@ -210,5 +213,5 @@
 
 
 <?php 
-	include 'footer.php'; 
+    include 'footer.php'; 
 ?>
