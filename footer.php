@@ -4,9 +4,18 @@
         <h5 class="menu-text">LDNR</h5>
             <div class="top-bar-right">
                 <ul class="dropdown menu" data-dropdown-menu>
-                    <li><a href="index.php">Accueil</a></li>
-                    <li><a href="visu.php">Visualisation</a></li>
-                    <li><a href="<?= redirect(); ?>">Maintenance</a></li>
+                    <li>
+                        <i class="fas fa-home"></i>
+                        <a href="index.php">Accueil</a>
+                    </li>
+                    <li>
+                        <i class="far fa-eye"></i>
+                        <a href="visu.php">Visualisation</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-tools"></i>
+                        <a href="<?= redirect(); ?>">Maintenance</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -14,6 +23,12 @@
         <div class="overlay"></div>
 
     </div><!-- wrapper -->
+    <div class="background">
+        <img src="ressources/forme1.png" alt="">
+    </div>
+    <div class="background2">
+        <img src="ressources/forme3.png" alt="">
+    </div>
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
