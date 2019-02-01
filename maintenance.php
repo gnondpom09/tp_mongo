@@ -118,7 +118,7 @@
                                     <th>Nom</th>
                                     <th>Code postal</th>
                                     <th>Population</th>                        
-                                    <th>Divers</th>
+                                    <th></th>
                                 </tr>
                               </thead>
 
@@ -137,10 +137,10 @@
                         <td><?php echo $document->pop;  ?></td>
                         
                         <td><a class='editlink' data-id=<?php echo $document->nom; ?> 
-                                href='javascript:void(0)'>Edit</a> |
-                            <a onClick ='return confirm("Do you want to remove this
+                                href='javascript:void(0)'>Edit</a> 
+                            <!-- <a onClick ='return confirm("Do you want to remove this
                                         record?");' 
-                            href='record_delete.php?id=<?php echo $document->nom;  ?>'>Delete</td>
+                            href='record_delete.php?id=<?php echo $document->nom;  ?>'>Delete</td> -->
 
                         </tr>
 
