@@ -39,7 +39,7 @@
             </div>
 
             <!-- Name input & Submit button -->
-            <div class="cell">
+            <div class="cell" id="name-research">
                 <label for="data_rech">Saisir votre recherche</label>
                 <input type="text" name="data_rech" id="data_rech" size="33<" placeholder="saisir nom ville ou département ou région">
 
