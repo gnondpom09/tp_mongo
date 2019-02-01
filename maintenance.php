@@ -14,13 +14,38 @@
                     <p>Veuillez sélectionner la collection à modifier :</p>
                 </div>
 
-                <p class="r_collection">
-                
-                    <input type="radio" name="data" id="r_ville" value="r_ville">Ville
-                    <input type="radio" name="data" id="r_dept" value="r_dept">Département
-                    <input type="radio" name="data" id="r_region" value="r_region">Région
+                 <?php
 
-                </p>
+                //get the statue of user
+                $userRole = $userLogged -> role;
+
+                //make the radion choices
+                $r_collection = ['r_ville' => 'Ville',
+                                'r_dept' => 'Département',
+                                'r_region' => 'Région'];
+
+                foreach ($r_collection as $key => $value) {
+
+                    //now verify thier statue and then decide which radion button will be available
+                    if ($key !== 'r_ville' && $userRole == 'edit') {
+
+                    printf('<input type="radio" name="data" id="%s" value="%s" disabled><label for="data">%s</label>', $key, $key, $value);
+
+                    } else {
+
+                    printf('<input type="radio" name="data" id="%s" value="%s"><label for="data">%s</label>', $key, $key, $value);
+
+                    }
+                }                                               
+                ?>
+
+                <!-- // <p class="r_collection">
+                
+                //     <input type="radio" name="data" id="r_ville" value="r_ville">Ville
+                //     <input type="radio" name="data" id="r_dept" value="r_dept">Département
+                //     <input type="radio" name="data" id="r_region" value="r_region">Région
+
+                // </p> -->
 
                 <p class="data_rech">
                     <label for="label_data">Saisir votre recherche</label>
@@ -85,7 +110,7 @@
 
                      
                         ?>
-
+                        
 
                         <table class='table'>
                             <thead>
