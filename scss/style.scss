@@ -95,17 +95,17 @@ table {
         }
     }
 }
-#center-container, #form_maint {
+.wrapper > .grid-x {
     background-color: $clear;
     margin: 40px;
     padding: 40px 10px;
     border-radius: 8px;
     border: 1px solid rgba($white, 0.35);
-    form, #update-form {
-        width: 100%;
+    #visu-form, #update-form {
+        // width: 100%;
         .grid-x {
-            display: flex;
-            justify-content: space-between;
+            // display: flex;
+            // justify-content: space-between;
             .cell {
                 padding: 0;
             }
@@ -113,9 +113,11 @@ table {
         label {
             color: $white !important;
         }
+        .middle {
+            margin-bottom: 0 !important;
+        }
         input[type="text"] {
             border-radius: 8px;
-            // border: 1px solid $white;
             border: 0;
         }
         input[type="radio"] {
@@ -128,7 +130,7 @@ table {
             width: 48%;
             padding: 0;
             label {
-                margin-bottom: 10px;
+                margin-bottom: 0;
             }
         }
         .button, input[type="submit"] {
@@ -145,12 +147,29 @@ table {
         }
     }
     #update-form {
-        input[type="submit"] {
-            width: 48%;
-            // margin-left: 2.5%;
-            background-color: transparent !important;
-            padding: 0;
+        #intro {
+            width: 100%;
         }
+        #name-research {
+            label {
+                margin-bottom: 5px;
+            }
+            #data_rech {
+                display: inline-block;
+                width: 48%;
+            }
+            input[type="submit"] {
+                width: 100%;
+                margin-left: 2.5%;
+                background-color: transparent !important;
+                padding: 0;
+                display: inline-block;
+                width: 48%;
+            }
+        }
+    }
+    #table-container {
+        overflow: scroll;
     }
 }
 
@@ -236,13 +255,37 @@ table {
         }
     }
 }
+.editlink {
+    background-color: $secondary;
+    color: $white;
+    width: 100%;
+    display: block;
+    text-align: center;
+    border-radius: 4px;
+}
+.editlink:hover {
+    color: $white;
+    background-color: rgba($secondary, 0.8);
+}
   
 
 /******************************************************************************/
 /************************************** RESPONSIVE ****************************/
 /******************************************************************************/
-
+@media only screen and (max-width: 1080px) {
+    .medium-8 {
+        width: 100% !important;
+    }
+}
 @media only screen and (max-width: 767px) {
+    .cell, input[type="text"] {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    input[type="submit"]:not(#logout) {
+        margin: 20px 0 !important;
+        width: 100% !important;
+    }
     h1 {
         font-size: 4em;
     }
@@ -262,8 +305,47 @@ table {
     }
 }
 @media only screen and (max-width: 600px) {
+    .modal-register, .modal-login {
+        width: 100%;
+        height: 100%;
+        .block-revealer__content {
+            height: 100%;
+        }
+    }
+    #close-register, #close-login {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    .fa-times {
+        color: $primary;
+    }
+    .logout, .btn-login {
+        position: absolute;
+        top: 10px !important;
+        right: 8px !important;
+    }
+    .menu-login {
+        padding: 10px !important;
+    }
     h1 {
         font-size: 2.4em;
+    }
+    .input-group-field {
+        margin: 0!important;
+    }
+    .wrapper > .grid-x {
+        width: 100%;
+        background-color: transparent;
+        border: 0;
+        margin: 0 !important;
+        .cell {
+            margin: 2px !important;
+        }
+        .text-center {
+            text-align: left !important;
+            padding-bottom: 0 !important;
+        }
     }
 }
 

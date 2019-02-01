@@ -3,7 +3,7 @@
 ?>
 
 		<!-- Center Text -->
-		<div class="grid-x grid-padding-x align-center align-middle" id="center-text">
+		<div class="grid-padding-x align-center align-middle" id="center-text">
 			<h1  class="separator-center">
 				GEO FRANCE
 			</h1>

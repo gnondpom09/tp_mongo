@@ -6,6 +6,8 @@
 	revealer = new RevealFx(modalEl),
     openRegisterCtrl = document.getElementById('open-register'),
     closeCtrl = document.querySelector('.overlay');
+    var closeRegister = document.querySelector("#close-register");
+    var closeLogin = document.querySelector("#close-login");
     var primaryColor = '#6AC8EE';
     var secondaryColor = '#f679e7';
 
@@ -30,11 +32,14 @@
 				contentEl.style.opacity = 1;
 			},
 			onComplete: function() {
-				closeCtrl.addEventListener('click', closeModal); // Cancel and close modal
+                closeCtrl.addEventListener('click', closeModal); // Cancel and close modal
 				openRegisterCtrl.addEventListener('click', openRegister); // close login form and open register form
 			}
 		});
-	});
+    });
+    // close modal on mobile
+    document.querySelector('#close-login').addEventListener('click', closeModal);
+    document.querySelector('#close-register').addEventListener('click', closeModalRegister);
 
 	// Open modal register form
 	function openRegister(ev) {
@@ -69,13 +74,15 @@
 				contentEl.style.opacity = 1;
 			},
 			onComplete: function() {
-				closeRegisterCtrl.addEventListener('click', closeModalRegister);
+                closeRegisterCtrl.addEventListener('click', closeModalRegister);
+                // closeRegister.addEventListener('click', closeModalRegister);
 			}
 		});
 	}
 
 	// Close form and cancel action
 	function closeModal(ev) {
+        console.log('close');
 		$('.overlay').removeClass('overlay-show');
 		closeCtrl.removeEventListener('click', closeModal);
 		modalEl.classList.remove('modal--open');
@@ -96,6 +103,8 @@
 
 	// Close form and cancel action
 	function closeModalRegister(ev) {
+        console.log('close register');
+        
 		$('.overlay').removeClass('overlay-show'); // remove mask
 		closeRegisterCtrl.removeEventListener('click', closeModalRegister);
 		modalElRegister.classList.remove('modal--open');

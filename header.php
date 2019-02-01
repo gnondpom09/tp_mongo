@@ -160,7 +160,8 @@
                 </ul>
             </nav>
 
-            <div class="modal">
+            <div class="modal modal-login">
+                <i class="fas fa-times" id="close-login"></i>
                 <img src="ressources/ldnr_logo.png" alt="logo">
                 <div class="modal__inner">
                     <form action="" method="post" id="login-form">
@@ -171,14 +172,14 @@
                                 <span class="input-group-label">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <input name="email" class="input-group-field" type="text" placeholder="Email">
+                                <input name="email" class="input-group" type="text" placeholder="Email">
                             </div>
 
                             <div class="input-group">
                                 <span class="input-group-label">
                                     <i class="fa fa-key"></i>
                                 </span>
-                                <input name="password" class="input-group-field" type="password" placeholder="Password">
+                                <input name="password" class="input-group" type="password" placeholder="Password">
                             </div>
 
                         </div>
@@ -191,6 +192,9 @@
             </div>
 
             <div class="modal-register">
+                <button id="close-register">
+                    <i class="fas fa-times"></i>
+                </button>
                 <img src="ressources/ldnr_logo.png" alt="logo">
                 <div class="modal__inner">
                     <form action="" method="post" id="register-user">
@@ -201,28 +205,28 @@
                                 <span class="input-group-label">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <input name="name" class="input-group-field" type="text" placeholder="Full name">
+                                <input name="name" class="input-group" type="text" placeholder="Full name">
                             </div>
 
                             <div class="input-group">
                                 <span class="input-group-label">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <input name="email" class="input-group-field" type="text" placeholder="Email">
+                                <input name="email" class="input-group" type="text" placeholder="Email">
                             </div>
 
                             <div class="input-group">
                                 <span class="input-group-label">
                                     <i class="fa fa-key"></i>
                                 </span>
-                                <input name="password" class="input-group-field" type="password" placeholder="Password">
+                                <input name="password" class="input-group" type="password" placeholder="Password">
                             </div>
 
                             <div class="input-group">
                                 <span class="input-group-label">
                                     <i class="fa fa-key"></i>
                                 </span>
-                                <input name="repeat" class="input-group-field" type="password" placeholder="Password">
+                                <input name="repeat" class="input-group" type="password" placeholder="Password">
                             </div>
 
                         </div>
