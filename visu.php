@@ -11,9 +11,9 @@
 					<?php
 
 						//make the inputs
-						$filtre = ['ville' => 'Ville*', 
-								   'departement' => 'Département', 
-								   'region' => 'Région'];
+						$filtre = ['ville' => 'Nom Ville*', 
+								   'departement' => 'Nom Département', 
+								   'region' => 'Nom Région'];
 
 						foreach ($filtre as $key => $value) { 
 							$input = '';
@@ -67,10 +67,11 @@
 									//verify if the city exists, or there are more than one city have the same name, than change the flag
 									if (sizeof($results_pre) > 1) {
 										$flag = 2;
+
 										//list out the dept available
 										printf('<div class="grid-x grid-padding-x align-center">
 													<fieldset class="medium-11 cell">
-														<legend>Il faut choisir un département</legend>');
+														<legend>Choix de département</legend>');
 										foreach ($results_pre as $key => $value) {
 											$deptname_pre = $value -> dept -> nom;
 											printf('<input type="radio" name="depart" value="%s"><label for="depart">%s</label>', $deptname_pre, $deptname_pre);

@@ -85,7 +85,7 @@
                             // get data from collection
                                         
                             $filter = [
-                                'nom' => $data_rech
+                                'nom' => new MongoDB\BSON\Regex('^'.$data_rech.'$','i')
                             ];
                             
                             // Check ville /département/région: 
@@ -112,10 +112,18 @@
                                 ?>
 
                                     <tr>
-                                        <td><!-- Disabled, only for transmit the name--><input type="text" name="data_nom" value=<?php echo $document->nom;  ?> readonly></td>
-                                        <td><input type="text" name="data_cp" value=<?php echo $document->cp;  ?> ></td>           
-                                        <td><input type="text" name="data_pop" value=<?php echo $document->pop;  ?> ></td>
-                                        <td><input type="submit" value="Validez" name="valider"></td>
+                                        <td><!-- Readonly for transmit the name-->
+                                            <input type="text" name="data_nom" value=<?php echo $document->nom;  ?> readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="data_cp" value=<?php echo $document->cp;  ?> >
+                                        </td>           
+                                        <td>
+                                            <input type="text" name="data_pop" value=<?php echo $document->pop;  ?> >
+                                        </td>
+                                        <td>
+                                            <input type="submit" value="Validez" name="valider">
+                                        </td>
                                     </tr>
 
                                 <?php 
@@ -135,7 +143,7 @@
                                         <tr><!-- add an invisible input for verify the collection-->
                                             <input type="hidden" name="data_collection" value="departements">
                                             <th>Nom</th>
-                                            <th>Appartenance au Région</th>
+                                            <th>Appartenance à la Région</th>
                                             <th>Opération</th>                       
                                         </tr>
                                     </thead>
@@ -146,9 +154,15 @@
                                     ?>
 
                                         <tr>
-                                            <td><!-- Disabled, only for transmit the name--><input type="text" name="data_nom" value=<?php echo $document->nom;  ?> readonly></td>         
-                                            <td><input type="text" name="data_id" value=<?php echo $document->_id_region;  ?> ></td>
-                                            <td><input type="submit" value="Validez" name="valider"></td>
+                                            <td><!-- Readonly for transmit the name-->
+                                                <input type="text" name="data_nom" value=<?php echo $document->nom;  ?> readonly>
+                                            </td>         
+                                            <td>
+                                                <input type="text" name="data_id" value=<?php echo $document->_id_region;  ?> >
+                                            </td>
+                                            <td>
+                                                <input type="submit" value="Validez" name="valider">
+                                            </td>
                                         </tr>
 
                                     <?php 
@@ -178,9 +192,15 @@
                                     ?>
 
                                         <tr>
-                                            <td><!-- Disabled, only for transmit the name--><input type="text" name="data_nom" value=<?php echo $document->nom;  ?> readonly></td>
-                                            <td><input type="text" name="data_nom_modif" value=<?php echo $document->nom;  ?> ></td>
-                                            <td><input type="submit" value="Validez" name="valider"></td>        
+                                            <td><!-- Readonly for transmit the name-->
+                                                <input type="text" name="data_nom" value=<?php echo $document->nom;  ?> readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="data_nom_modif" value=<?php echo $document->nom;  ?> >
+                                            </td>
+                                            <td>
+                                                <input type="submit" value="Validez" name="valider">
+                                            </td>        
                                         </tr>
 
                                     <?php 
@@ -200,29 +220,64 @@
                         endif;              
                     endif;
 
-                    //  Update **must do this if out of the loop    
+                    /**  Update  **  must do this if out of the loop  
+                    *    $_POST['data_collection'] -> collection name
+                    *    $_POST['data_nom'] -> name of city/dept/region
+                    *    $_POST['data_cp'] -> code postale
+                    *    $_POST['data_pop'] -> population
+                    *    $_POST['data_id'] -> _id_region
+                    *    $_POST['data_nom_modif'] -> modified region name 
+                    *
+                    */  
                     if (isset($_POST['valider'])) :
+
+                        //verify which collection to manuplate
                         switch ($_POST['data_collection']) :
+
                             case 'villes':
+
                                 $bulk= new MongoDB\Driver\BulkWrite;
+
                                 $wc = new MongoDB\Driver\WriteConcern(MongoDB\Driver\WriteConcern::MAJORITY, 500);
-                                $bulk->update(['nom' => $_POST['data_nom']], ['$set' => ['cp' => $_POST['data_cp'], 'pop' => $_POST['data_pop']]]);
+
+                                $bulk->update(['nom' => $_POST['data_nom']], 
+                                              ['$set' => ['cp' => $_POST['data_cp'], 
+                                                          'pop' => $_POST['data_pop']]]);
+
                                 $result = $manager->executeBulkWrite($db.'.'.$_POST['data_collection'], $bulk, $wc);
+
                                 printf('<span> Merci, votre mise à jour de la ville <em>%s</em> est enregistré: code postaux -> <em>%s</em>, population -> <em>%s</em></span>', $_POST['data_nom'], $_POST['data_cp'], $_POST['data_pop']);
+
                                 break;
+
                             case 'departements':
+
                                 $bulk = new MongoDB\Driver\BulkWrite;
+
                                 $wc = new MongoDB\Driver\WriteConcern(MongoDB\Driver\WriteConcern::MAJORITY, 500);
-                                $bulk->update(['nom' => $_POST['data_nom']], ['$set' => ['_id_region' => $_POST['data_id']]]);
+
+                                $bulk->update(['nom' => $_POST['data_nom']], 
+                                              ['$set' => ['_id_region' => $_POST['data_id']]]);
+
                                 $result = $manager->executeBulkWrite($db.'.'.$_POST['data_collection'], $bulk, $wc);
+
                                 printf('<span> Merci, votre mise à jour du département <em>%s</em> est enregistré: ID Région -> <em>%s</em></span>', $_POST['data_nom'], $_POST['data_id']);
+
                                 break;
+
                             case 'regions':
+
                                 $bulk = new MongoDB\Driver\BulkWrite;
+
                                 $wc = new MongoDB\Driver\WriteConcern(MongoDB\Driver\WriteConcern::MAJORITY, 500);
-                                $bulk->update(['nom' => $_POST['data_nom']], ['$set' => ['nom' => $_POST['data_nom_modif']]]);
+
+                                $bulk->update(['nom' => $_POST['data_nom']], 
+                                              ['$set' => ['nom' => $_POST['data_nom_modif']]]);
+
                                 $result = $manager->executeBulkWrite($db.'.'.$_POST['data_collection'], $bulk, $wc);
+
                                 printf('<span> Merci, votre mise à jour de la région <em>%s</em> est enregistré: %s -> <em>%s</em></span>', $_POST['data_nom'], $_POST['data_nom'], $_POST['data_nom_modif']);
+
                                 break;
                         endswitch;
                     endif;
@@ -231,9 +286,6 @@
             </div>  
         </form>     
     </div>
-
-
-
 
 <?php 
     include 'footer.php'; 
