@@ -6,7 +6,7 @@
 		<div class="grid-x grid-padding-x align-spaced" id="center-container">
 
 			<!-- Form -->
-			<div class="cell medium-5 medium-cell-block-y" id="form-container">
+			<div class="cell medium-3 medium-cell-block-y" id="form-container">
 				<form action="" method="get" id="visu-form">
 					<?php
 
@@ -81,12 +81,15 @@
 											</div>');
 										if (isset($_GET['depart'])) {
 											$deptname = htmlspecialchars($_GET['depart']);
-										}						
+										}
+
 									} elseif (sizeof($results_pre) == 1) {
 										$flag = 1;
+
 									} else {
 										$flag = -1;
 									}
+
 								} elseif ( ($_GET['filtre']['ville'] != '' && $_GET['filtre']['departement'] != '' && $_GET['filtre']['region'] == '') || ($_GET['filtre']['ville'] != '' && $_GET['filtre']['departement'] != '' && $_GET['filtre']['region'] != '') ) {
 									$flag = 2;
 									$cityname = htmlspecialchars($_GET['filtre']['ville']);
@@ -104,150 +107,9 @@
 			</div>
 
 			<!-- Results -->
-			<div class="cell medium-5 medium-cell-block-y" id="table-container">
+			<div class="cell medium-3 medium-cell-block-y" id="table-container">
 				<table class="hover" id="visu-table">
 					<?php
-						//Function to draw svg img
-						function drawSVG($manager, $db, $cityname, $deptname) {
-						  //Main pojection function which to lon&lat to x&y
-						    function projection($lon, $lat) {
-						      return [RATIO*($lon+TX)*cos(LAT_MOY*(M_PI / 180)), RATIO*(-$lat+TY)];
-						    }
-						     
-						    //Creation of some variables
-						    //$height will also decides the ratio of zoom
-						    $height = 500; 
-						    $svgheader = <<<EOSVGH
-						    <svg xmlns="http://www.w3.org/2000/svg"
-						         viewBox="0 0 %s %s"
-						         style="background:#fff">
-						        <style>
-						            polygon {
-						              fill:#519af0;
-						            }
-						            polygon:hover {
-						              fill:#f679e7;
-						            }
-						            g circle {
-						              fill:#fff;
-						              fill-opacity:1
-						            }
-						            g:hover circle {
-						              fill:#f679e7;
-						              fill-opacity:1
-						            }
-						            g text {
-						              fill:#fff;
-						              font-size:20px;
-						              opacity:1;
-						              alignment-baseline:middle;
-						              text-anchor:middle
-						            }
-						            g:hover text {
-						              fill:#f679e7;
-						              font-weight:bold;
-						            }
-						        </style>
-EOSVGH;
-						    $svgfooter = '</svg>';
-
-						    //Get the border of svg box with map/reduce
-						    $map = <<<EOMAP
-						    function() {
-						      var res = {
-						        minlon: 180,
-						        maxlon: -180,
-						        minlat: 90,
-						        maxlat: -90
-						      }
-						      for (i=0; i<this.contours.length; i++) {
-						        for (j=0; j<this.contours[i].length; j++) {
-						          if (res.minlon > this.contours[i][j][0]) res.minlon = this.contours[i][j][0];
-						          if (res.maxlon < this.contours[i][j][0]) res.maxlon = this.contours[i][j][0];
-						          if (res.minlat > this.contours[i][j][1]) res.minlat = this.contours[i][j][1];
-						          if (res.maxlat < this.contours[i][j][1]) res.maxlat = this.contours[i][j][1];
-						        }
-						      }
-						      emit(1, res);
-						    }
-EOMAP;
-						    $reduce = <<<EORED
-						    function(key, vals) {
-						      var res = {
-						        minlon: 180,
-						        maxlon: -180,
-						        minlat: 90,
-						        maxlat: -90
-						      }
-						      vals.forEach(function(val) {
-						        if (res.minlon > val.minlon) res.minlon = val.minlon;
-						        if (res.maxlon < val.maxlon) res.maxlon = val.maxlon;
-						        if (res.minlat > val.minlat) res.minlat = val.minlat;
-						        if (res.maxlat < val.maxlat) res.maxlat = val.maxlat;
-						      });
-						      return {minmax: res};
-						    }
-EORED;
-						    $boxCmd = new MongoDB\Driver\Command([
-						      'mapreduce' => 'departements',
-						      'map' => $map,
-						      'reduce' => $reduce,
-						      'query' => ['nom' => new MongoDB\BSON\Regex('^'.$deptname.'$','i'),
-						                  'contours' => ['$exists' => true]],
-						      'out' => ['inline' => 1]]);
-						    $box = $manager->executeCommand($db, $boxCmd)->toArray()[0];
-
-						    //Turn $box to array with json_code
-						    $minmax = json_decode(json_encode($box->results[0]->value),true);
-
-						    //Creation of constants
-						    define('RATIO', $height/($minmax["maxlat"] - $minmax["minlat"]));
-						    define('LAT_MOY', ($minmax["maxlat"] + $minmax["minlat"])/2);
-						    define('TX', -$minmax["minlon"]);
-						    define('TY', $minmax["maxlat"]);
-						    list($width,$unused) = projection($minmax["maxlon"], LAT_MOY);
-
-						    //Begin to draw our svg map
-						    printf($svgheader, $width, $height);
-
-						    //Draw the department 
-						    $filter = ['nom' =>  new MongoDB\BSON\Regex('^'.$deptname.'$','i'),
-						               'contours' => ['$exists' => true]];
-						    $options = [
-						      'projection' => ['contours' => 1, '_id_region' => 1, '_id' => 0],
-						      'sort'       => ['contours' => 1],
-						    ];
-						     
-						    $query = new MongoDB\Driver\Query($filter, $options);
-						    $curseur = $manager->executeQuery($db.'.departements', $query);
-						     
-						    foreach($curseur as $crs) {
-						      foreach ($crs->contours as $contour) {
-						        printf('<polygon points="'."\n");
-						        foreach ($contour as $ptb) {
-						          list($lon, $lat) = $ptb;
-						          list($px, $py) = projection($lon, $lat);
-						          printf(' %d %d', $px, $py);
-						        }
-						        echo '"/>'."\n";
-						      }
-						    }
-
-						    //Draw the city
-						    $command = new MongoDB\Driver\Command(
-						      ['aggregate' => 'villes',
-						       'pipeline'=> [['$match' => ['nom' => new MongoDB\BSON\Regex('^'.$cityname.'$','i')]]],
-						       'cursor' => ['batchSize' => 10000]]);           
-						    $city = $manager->executeCommand($db, $command)->toArray();
-						    foreach($city as $doc) {
-						      list($px, $py) = projection($doc->lon, $doc->lat);
-						      printf('<g><circle cx="%d" cy="%d" r="5"/>'."\n", $px, $py);
-						      printf('<text x="%d" y="%d">%s</text></g>'."\n", $px, $py-15, $doc->nom);
-						    }
-						    //End of svg
-						    echo $svgfooter;
-						}
-
 						try {
 
 							//Search with the city name
@@ -291,9 +153,8 @@ EORED;
 								    echo "</tr></td>\n";
 								}
 
-								//Draw svg
+								//variable for svg
 								$deptname = $results_1 -> dept -> nom;
-								drawSVG($manager, $db, $cityname, $deptname);
 
 							} elseif ($flag == 2 && isset($deptname)) {
 							//search with the city name && dept name
@@ -337,20 +198,176 @@ EORED;
 									    echo "</tr></td>\n";
 									}
 
-									//Draw svg
-									drawSVG($manager, $db, $cityname, $deptname);
-
 								} else {
 									echo "<tr><td>\nLa ville et le département ne correspondent pas !</tr></td>\n";
 								}
+
 							} elseif ($flag == -1) {
 								echo "<tr><td>\nLa ville est introuvable !</tr></td>\n";
 							}
+
 						} catch (exception $exep) {
 							printf("<p>Erreur : %s</p>\n", htmlspecialchars($exep->getMessage()));
 						}
 					?>
 				</table>
+			</div>
+
+			<!-- SVG Map-->
+			<div class="cell medium-3 medium-cell-block-y" id="table-container">
+				<?php
+				//Function to draw svg img
+					function drawSVG($manager, $db, $cityname, $deptname) {
+					  //Main pojection function which to lon&lat to x&y
+					    function projection($lon, $lat) {
+					      return [RATIO*($lon+TX)*cos(LAT_MOY*(M_PI / 180)), RATIO*(-$lat+TY)];
+					    }
+					     
+					    //Creation of some variables
+					    //$height will also decides the ratio of zoom
+					    $height = 500; 
+					    $svgheader = <<<EOSVGH
+					    <svg xmlns="http://www.w3.org/2000/svg"
+					         viewBox="0 0 %s %s"
+					         style="background:#fff">
+					        <style>
+					            polygon {
+					              fill:#519af0;
+					            }
+					            polygon:hover {
+					              fill:#f679e7;
+					            }
+					            g circle {
+					              fill:#fff;
+					              fill-opacity:1
+					            }
+					            g:hover circle {
+					              fill:#f679e7;
+					              fill-opacity:1
+					            }
+					            g text {
+					              fill:#fff;
+					              font-size:20px;
+					              opacity:1;
+					              alignment-baseline:middle;
+					              text-anchor:middle
+					            }
+					            g:hover text {
+					              fill:#f679e7;
+					              font-weight:bold;
+					            }
+					        </style>
+EOSVGH;
+					    $svgfooter = '</svg>';
+
+					    //Get the border of svg box with map/reduce
+					    $map = <<<EOMAP
+					    function() {
+					      var res = {
+					        minlon: 180,
+					        maxlon: -180,
+					        minlat: 90,
+					        maxlat: -90
+					      }
+					      for (i=0; i<this.contours.length; i++) {
+					        for (j=0; j<this.contours[i].length; j++) {
+					          if (res.minlon > this.contours[i][j][0]) res.minlon = this.contours[i][j][0];
+					          if (res.maxlon < this.contours[i][j][0]) res.maxlon = this.contours[i][j][0];
+					          if (res.minlat > this.contours[i][j][1]) res.minlat = this.contours[i][j][1];
+					          if (res.maxlat < this.contours[i][j][1]) res.maxlat = this.contours[i][j][1];
+					        }
+					      }
+					      emit(1, res);
+					    }
+EOMAP;
+					    $reduce = <<<EORED
+					    function(key, vals) {
+					      var res = {
+					        minlon: 180,
+					        maxlon: -180,
+					        minlat: 90,
+					        maxlat: -90
+					      }
+					      vals.forEach(function(val) {
+					        if (res.minlon > val.minlon) res.minlon = val.minlon;
+					        if (res.maxlon < val.maxlon) res.maxlon = val.maxlon;
+					        if (res.minlat > val.minlat) res.minlat = val.minlat;
+					        if (res.maxlat < val.maxlat) res.maxlat = val.maxlat;
+					      });
+					      return {minmax: res};
+					    }
+EORED;
+					    $boxCmd = new MongoDB\Driver\Command([
+					      'mapreduce' => 'departements',
+					      'map' => $map,
+					      'reduce' => $reduce,
+					      'query' => ['nom' => new MongoDB\BSON\Regex('^'.$deptname.'$','i'),
+					                  'contours' => ['$exists' => true]],
+					      'out' => ['inline' => 1]]);
+					    $box = $manager->executeCommand($db, $boxCmd)->toArray()[0];
+
+					    //Turn $box to array with json_code
+					    $minmax = json_decode(json_encode($box->results[0]->value),true);
+
+					    //Creation of constants
+					    define('RATIO', $height/($minmax["maxlat"] - $minmax["minlat"]));
+					    define('LAT_MOY', ($minmax["maxlat"] + $minmax["minlat"])/2);
+					    define('TX', -$minmax["minlon"]);
+					    define('TY', $minmax["maxlat"]);
+					    list($width,$unused) = projection($minmax["maxlon"], LAT_MOY);
+
+					    //Begin to draw our svg map
+					    printf($svgheader, $width, $height);
+
+					    //Draw the department 
+					    $filter = ['nom' =>  new MongoDB\BSON\Regex('^'.$deptname.'$','i'),
+					               'contours' => ['$exists' => true]];
+					    $options = [
+					      'projection' => ['contours' => 1, '_id_region' => 1, '_id' => 0],
+					      'sort'       => ['contours' => 1],
+					    ];
+					     
+					    $query = new MongoDB\Driver\Query($filter, $options);
+					    $curseur = $manager->executeQuery($db.'.departements', $query);
+					     
+					    foreach($curseur as $crs) {
+					      foreach ($crs->contours as $contour) {
+					        printf('<polygon points="'."\n");
+					        foreach ($contour as $ptb) {
+					          list($lon, $lat) = $ptb;
+					          list($px, $py) = projection($lon, $lat);
+					          printf(' %d %d', $px, $py);
+					        }
+					        echo '"/>'."\n";
+					      }
+					    }
+
+					    //Draw the city
+					    $command = new MongoDB\Driver\Command(
+					      ['aggregate' => 'villes',
+					       'pipeline'=> [['$match' => ['nom' => new MongoDB\BSON\Regex('^'.$cityname.'$','i')]]],
+					       'cursor' => ['batchSize' => 10000]]);           
+					    $city = $manager->executeCommand($db, $command)->toArray();
+					    foreach($city as $doc) {
+					      list($px, $py) = projection($doc->lon, $doc->lat);
+					      printf('<g><circle cx="%d" cy="%d" r="5"/>'."\n", $px, $py);
+					      printf('<text x="%d" y="%d">%s</text></g>'."\n", $px, $py-15, $doc->nom);
+					    }
+					    //End of svg
+					    echo $svgfooter;
+					}
+
+					try {
+						//verify if inputs are completed
+						if ($flag != 0 && isset($deptname)) {
+							//Draw svg
+							drawSVG($manager, $db, $cityname, $deptname);
+						}
+					} catch (exception $exep) {
+						printf("<p>Erreur : %s</p>\n", htmlspecialchars($exep->getMessage()));
+					}
+
+				?>
 			</div>
 		</div>
 
